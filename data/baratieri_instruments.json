@@ -1,0 +1,41 @@
+[
+  {
+    "id": "B-GPH012",
+    "createdAt": "2025-11-27T00:38:54.566Z",
+    "nome": "Araúna",
+    "ano": "",
+    "modelo": "Cavaquinho",
+    "status": "Vendido",
+    "linha": "Imbuia, Marupa e Cedro / Raiz",
+    "serie": "",
+    "obs": "Linha Raiz - 100% madeira maciça\nFundo e laterais: Imbuia\nTampo: Marupa",
+    "comprador": "",
+    "telefone": ""
+  },
+  {
+    "id": "B-GPJKR6",
+    "createdAt": "2025-11-27T00:40:54.738Z",
+    "nome": "Tainá",
+    "ano": "",
+    "modelo": "Viola Caipira",
+    "status": "Reservado",
+    "linha": "Imbuia, Cedro Rosa / Raiz",
+    "serie": "",
+    "obs": "Viola Caipira Linha Raiz \n100% madeira maciça\nFundo e laterias: Imbuia \nTampo: Cedro Rosa",
+    "comprador": "",
+    "telefone": ""
+  },
+  {
+    "id": "B-VWQJPM",
+    "createdAt": "2025-12-07T15:58:49.930Z",
+    "nome": "JACIR PAULO BARATIERI",
+    "ano": "",
+    "modelo": "teste",
+    "status": "Disponível",
+    "linha": "teste",
+    "serie": "",
+    "obs": "fffffff",
+    "comprador": "",
+    "telefone": ""
+  }
+]
