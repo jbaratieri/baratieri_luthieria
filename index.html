@@ -39,39 +39,37 @@
   </main>
 
   <footer class="app-footer">
-        <p>&copy; 2025 Baratieri Luthieria. Todos os direitos reservados.</p>
+    <p>&copy; 2025 Baratieri Luthieria. Todos os direitos reservados.</p>
+    <nav class="footer-nav">
+      <a href="#" data-modal="modalSobre">Sobre</a>
+      <a href="#" data-modal="modalContato">Contato</a>
+    </nav>
+    <div id="modalSobre" class="modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <h2>Sobre a Baratieri Luthieria</h2>
+        <p>A <strong>Baratieri Luthieria</strong>, fundada por <strong>Jacir Paulo Baratieri</strong>,nasceu da paixão
+          por instrumentos artesanais e pela tradição da música de cordas.</p>
+        <p>Cada instrumento é construído de forma manual e dedicada, seguindo técnicas tradicionais, mas sempre com
+          espaço para pesquisa, estudo e inovação.</p>
+        <button class="btn-close" data-modal-close="modalSobre">Fechar</button>
+      </div>
+    </div>
 
-        <nav class="footer-nav">
-                  <a href="#" data-modal="modalSobre">Sobre</a>
-            <a href="#" data-modal="modalContato">Contato</a>
-          </nav>
-       
-            <div id="modalSobre" class="modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <h2>Sobre a Baratieri Luthieria</h2>
-                <p>A <strong>Baratieri Luthieria</strong>, fundada por <strong>Jacir Paulo Baratieri</strong>,
-                    nasceu da paixão por instrumentos artesanais e pela tradição da música de cordas.</p>
-                <p>Cada instrumento é construído de forma manual e dedicada, seguindo técnicas tradicionais,
-                    mas sempre com espaço para pesquisa, estudo e inovação.</p>
-                <button class="btn-close" data-modal-close="modalSobre">Fechar</button>
-              </div>
-          </div>
+    <div id="modalContato" class="modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <h2>Contato</h2>
 
-        <div id="modalContato" class="modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <h2>Contato</h2>
+        <p><a href="mailto:baratieriluthieria@gmail.com">baratieriluthieria@gmail.com</a></p>
+        <p><a href="https://wa.me/5545920028659" target="_blank" rel="noopener">(45) 92002-8659</a></p>
+        <p><a href="https://instagram.com/baratieri_luthieria" target="_blank" rel="noopener">@baratieri_luthieria</a>
+        </p>
+        <p>Terra Roxa – PR, Brasil</p>
 
-                <p><a href="mailto:baratieriluthieria@gmail.com">baratieriluthieria@gmail.com</a></p>
-                <p><a href="https://wa.me/5545920028659" target="_blank" rel="noopener">(45) 92002-8659</a></p>
-                <p><a href="https://instagram.com/baratieri_luthieria" target="_blank"
-            rel="noopener">@baratieri_luthieria</a>
-                  </p>
-                <p>Terra Roxa – PR, Brasil</p>
+        <button class="btn-close" data-modal-close="modalContato">Fechar</button>
+      </div>
+    </div>
 
-                <button class="btn-close" data-modal-close="modalContato">Fechar</button>
-              </div>
-          </div>
-      </footer>
+  </footer>
 
   <div id="image-modal" style="display:none" class="modal" role="dialog">
     <div class="modal-inner">

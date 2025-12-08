@@ -27,7 +27,7 @@
       const tbody = $id('tbody');
       const emptyBox = $id('empty');
       const form = $id('form');
-      const inputs = ['nome','ano','modelo','status','linha','serie','obs','comprador','telefone'];
+      const inputs = ['nome','ano','modelo','status', 'madeira', 'linha','serie','obs','comprador','telefone'];
       const countEl = $id('count');
       const searchEl = $id('search');
       const filterStatusEl = $id('filterStatus');
@@ -158,7 +158,7 @@
 
       function sanitizeInstrument(it){
         const out = Object.assign({}, it);
-        ['id','serie','nome','modelo','linha','ano','status','comprador','telefone','obs','createdAt'].forEach(k=>{
+        ['id','serie','nome','modelo', 'madeira', 'linha','ano','status','comprador','telefone','obs','createdAt'].forEach(k=>{
           if(out[k] === null || out[k] === undefined) out[k] = '';
           else if(typeof out[k] !== 'string') out[k] = String(out[k]);
         });
@@ -173,7 +173,7 @@
       if(fotosInput) fotosInput.addEventListener('change', ()=>{ /* noop */ });
       loadDraft();
 
-      function uid(){ return 'B-'+Date.now().toString(36).toUpperCase().slice(-6); }
+      function uid(){ return 'BL-'+Date.now().toString(36).toUpperCase().slice(-6); }
 
       // render
       async function render(){
@@ -216,6 +216,7 @@
           tdEtiqueta.innerHTML = `<div class="small">${escapeHtml(i.serie||i.id)}</div><div>${escapeHtml(i.nome)}</div>`;
 
           const tdModelo = document.createElement('td'); tdModelo.textContent = i.modelo || '';
+          const tdMadeira = document.createElement('td'); tdMadeira.textContent = i.madeira || '';
           const tdLinha = document.createElement('td'); tdLinha.textContent = i.linha || '';
 
           const tdStatus = document.createElement('td');
@@ -234,6 +235,7 @@
           tr.appendChild(tdImg);
           tr.appendChild(tdEtiqueta);
           tr.appendChild(tdModelo);
+          tr.appendChild(tdMadeira);
           tr.appendChild(tdLinha);
           tr.appendChild(tdStatus);
           tr.appendChild(tdCompr);

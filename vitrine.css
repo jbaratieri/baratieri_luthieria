@@ -259,7 +259,7 @@ nav a:hover {
 }
 
 /* ===================================
- * 7. MODAL DE GALERIA (Ampliação do Instrumento)
+ * 7. MODAL DE GALERIA (Ampliação do Instrumento) - AJUSTES DE DESKTOP
  * =================================== */
 
 #image-modal.modal {
@@ -273,11 +273,15 @@ nav a:hover {
   max-width: 95%;
   width: 900px;
   max-height: 90vh;
-  overflow-y: auto;
+  /* REMOVIDO: overflow-y: auto; (movemos o scroll para os filhos) */
   position: relative;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
+  /* NOVO: Garante que as colunas se alinhem ao topo e ocupe o espaço */
+  align-items: flex-start;
+  /* NOVO: Gerencia o overflow do container pai */
+  overflow: hidden;
 }
 
 .modal-close-btn {
@@ -303,7 +307,8 @@ nav a:hover {
 .gallery {
   display: flex;
   gap: 10px;
-  max-height: 80vh;
+  /* AJUSTE: Limita a altura da galeria principal no desktop */
+  max-height: 60vh;
   overflow: hidden;
 }
 
@@ -325,8 +330,11 @@ nav a:hover {
   flex-direction: column;
   gap: 8px;
   overflow-y: auto;
-  max-height: 550px;
+  /* NOVO: Preenche a altura da galeria */
+  max-height: 100%;
   padding-right: 5px;
+  /* NOVO: Scroll-snap vertical para PC */
+  scroll-snap-type: y mandatory;
 }
 
 .gallery .thumb {
@@ -339,6 +347,8 @@ nav a:hover {
   opacity: 0.8;
   transition: opacity 0.2s, border 0.2s;
   border: 2px solid transparent;
+  /* NOVO: Scroll-snap vertical para PC */
+  scroll-snap-align: start;
 }
 
 .gallery .thumb:hover,
@@ -351,6 +361,9 @@ nav a:hover {
 .modal-details {
   padding: 10px;
   border-left: 1px solid rgba(255, 255, 255, 0.05);
+  /* NOVO: Ocupa 100% da altura da grid row e permite scroll APENAS aqui */
+  height: 100%;
+  overflow-y: auto;
 }
 
 .modal-details h3 {
@@ -410,7 +423,7 @@ nav a:hover {
 }
 
 /* ===================================
- * 9. RESPONSIVIDADE
+ * 9. RESPONSIVIDADE - AJUSTES DE MOBILE
  * =================================== */
 
 /* Telas de tablet/modal (900px) */
@@ -422,11 +435,18 @@ nav a:hover {
     /* Uma coluna */
     width: 95%;
     max-height: 95vh;
+    /* Remove as regras de desktop que causavam "bagunça" */
+    overflow-y: auto;
+    align-items: stretch;
+    overflow: visible;
   }
 
   .modal-details {
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Remove as regras de desktop que causavam "bagunça" */
+    height: auto;
+    overflow-y: visible;
   }
 
   /* Galeria */
@@ -434,22 +454,36 @@ nav a:hover {
     flex-direction: column;
     overflow-y: auto;
     padding-bottom: 15px;
+    /* AJUSTE: Limita a altura da galeria no mobile para não estourar */
+    max-height: 70vh;
   }
 
   .thumbnails-list {
+    /* MUDANÇAS CRÍTICAS PARA CARROSSEL HORIZONTAL */
     flex-direction: row;
     /* Miniaturas na horizontal */
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    /* CORREÇÃO: IMPEDE QUEBRA DE LINHA (ESSENCIAL PARA CARROSSEL) */
     max-height: 150px;
-    justify-content: center;
+    justify-content: flex-start;
+    /* Alinha ao início para o scroll */
     overflow-y: hidden;
     overflow-x: auto;
+    /* PERMITE O SCROLL HORIZONTAL (CARROSSEL) */
+    scroll-snap-type: x mandatory;
+    /* NOVO: Scroll-snap horizontal */
+    padding-bottom: 10px;
+    /* Espaço para barra de scroll */
   }
 
   .gallery .thumb {
-    width: 60px;
-    min-width: 60px;
-    height: 60px;
+    width: 80px;
+    min-width: 80px;
+    height: 80px;
+    /* NOVO: Espaçamento entre os thumbs */
+    margin-right: 8px;
+    /* NOVO: Alinha o thumb ao centro ao parar o scroll */
+    scroll-snap-align: center;
   }
 
   #modal-image-gallery img {
