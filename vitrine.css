@@ -105,7 +105,7 @@ nav a:hover {
 }
 
 .instrument-card .image-container {
-  height: 220px;
+  height: 400px;
   overflow: hidden;
   position: relative;
   background: #182230;
@@ -308,7 +308,7 @@ nav a:hover {
   display: flex;
   gap: 10px;
   /* AJUSTE: Limita a altura da galeria principal no desktop */
-  max-height: 60vh;
+  max-height: 80vh;
   overflow: hidden;
 }
 

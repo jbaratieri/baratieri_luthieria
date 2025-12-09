@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p><strong>Série:</strong> ${instrumento.serie || instrumento.id}</p>
         <p><strong>Linha:</strong> ${instrumento.linha || 'Não especificado'}</p>
         <p><strong>Status:</strong> <span class="status-tag ${sanitizeStatus(instrumento.status)}">${instrumento.status || 'Disponível'}</span></p>
-        ${instrumento.obs ? `<p><strong>Observações:</strong> ${instrumento.obs}</p>` : ''}
+        ${instrumento.obs ? `<p><strong>Detalhes:</strong> ${instrumento.obs}</p>` : ''}
         
         <a href="${whatsappLink}" target="_blank" class="btn-whatsapp">
             Solicitar Orçamento/Fale Conosco
@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="status-tag ${statusClean}">${instrumento.status || 'Disponível'}</span>
                 <h3>${instrumento.nome}</h3>
                 <p>Modelo: ${instrumento.modelo || 'Custom'}</p>
+                <p>Madeira: ${instrumento.madeira || 'Custom'}</p>
                 ${instrumento.linha ? `<span class="linha">Linha: ${instrumento.linha}</span>` : ''}
             </div>
         `;
