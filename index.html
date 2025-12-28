@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Baratieri Luthieria — Instrumentos</title>
+  <meta name="description"
+    content="Vitrine de instrumentos artesanais de alta qualidade produzidos pela Baratieri Luthieria." />
+  <link rel="stylesheet" href="./vitrine.css">
+
+</head>
+
+<body>
+
+  <header class="app-header">
+    <div class="brand">
+      <h1>Baratieri Luthieria</h1>
+      <p>Artesanato e excelência em cada instrumento.</p>
+    </div>
+    <nav>
+      <a href="#vitrine">Vitrine</a>
+      <a href="#" data-modal="modalContato" onclick="openModal && openModal('modalContato')">Contato</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+
+    <section id="vitrine" class="vitrine-container">
+      <h2>Instrumentos em Destaque</h2>
+      <div id="instrumentos-list" class="grid-vitrine">
+        <div id="loading-state" class="loading">Carregando instrumentos...</div>
+        <div id="error-state" class="error" style="display:none;">
+          Não foi possível carregar os dados. Tente novamente mais tarde.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2025 Baratieri Luthieria. Todos os direitos reservados.</p>
+    <nav class="footer-nav">
+      <a href="#" data-modal="modalSobre">Sobre</a>
+      <a href="#" data-modal="modalServicos">Serviços</a>
+      <a href="#" data-modal="modalContato">Contato</a>
+    </nav>
+    <div id="modalSobre" class="modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <h2>Sobre a Baratieri Luthieria</h2>
+        <p>A <strong>Baratieri Luthieria</strong>, fundada por <strong>Jacir Paulo Baratieri</strong>,nasceu da paixão
+          por instrumentos artesanais e pela tradição da música de cordas.</p>
+        <p>Cada instrumento é construído de forma manual e dedicada, seguindo técnicas tradicionais, mas sempre com
+          espaço para pesquisa, estudo e inovação.</p>
+          <p>A Baratieri Luthieria baseia-se na metodologia Espanhola de construção de instrumentos de cordas.</p>
+        <button class="btn-close" data-modal-close="modalSobre">Fechar</button>
+      </div>
+    </div>
+
+    <div id="modalServicos" class="modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <h2>Serviços de Luthieria</h2>
+
+    <p>
+      A <strong>Baratieri Luthieria</strong> oferece serviços especializados de
+      manutenção, ajuste e restauração de instrumentos de cordas, sempre com
+      atenção aos detalhes e respeito às características originais do instrumento.
+    </p>
+
+    <ul class="lista-servicos">
+      <li><strong>Troca e ajuste de rastilho</strong> (osso, sintético ou personalizado)</li>
+      <li><strong>Colagem e regulagem de cavalete</strong></li>
+      <li><strong>Hidratação e limpeza de escala</strong></li>
+      <li><strong>Polimento e nivelamento de trastes</strong></li>
+      <li><strong>Ajuste de ação e oitavas</strong></li>
+      <li><strong>Troca de cordas</strong> (com regulagem básica)</li>
+      <li><strong>Correções estruturais leves</strong></li>
+      <li><strong>Manutenção preventiva</strong></li>
+    </ul>
+
+    
+    <p class="small muted">
+      Cada instrumento é avaliado individualmente. Os valores variam conforme o
+      estado, tipo de instrumento e complexidade do serviço.
+    </p>
+
+    <p style="margin-top:16px;">
+      <a href="https://wa.me/5545920028659" target="_blank" rel="noopener" class="btn-whatsapp">
+        Solicitar orçamento via WhatsApp
+      </a>
+    </p>
+
+    <button class="btn-close" data-modal-close="modalServicos">Fechar</button>
+  </div>
+</div>
+
+
+    <div id="modalContato" class="modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <h2>Contato</h2>
+
+        <p><a href="mailto:baratieriluthieria@gmail.com">baratieriluthieria@gmail.com</a></p>
+        <p><a href="https://wa.me/5545920028659" target="_blank" rel="noopener">(45) 92002-8659</a></p>
+        <p><a href="https://instagram.com/baratieri_luthieria" target="_blank" rel="noopener">@baratieri_luthieria</a>
+        </p>
+        <p>Terra Roxa – PR, Brasil</p>
+
+        <button class="btn-close" data-modal-close="modalContato">Fechar</button>
+      </div>
+    </div>
+
+  </footer>
+
+  <div id="image-modal" style="display:none" class="modal" role="dialog">
+    <div class="modal-inner">
+      <button id="closeModalBtn" class="modal-close-btn" aria-label="Fechar galeria">×</button>
+      <div id="modal-image-gallery" class="gallery">
+      </div>
+      <div id="modal-instrument-details" class="modal-details">
+      </div>
+    </div>
+  </div>
+  <script type="module" src="./vitrine.js" defer></script>
+  <script type="module" src="./footer.js" defer></script>
+</body>
+
+</html>

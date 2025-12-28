@@ -1,0 +1,531 @@
+/* ===================================
+ * 1. VARIÁVEIS DE COR
+ * =================================== */
+:root {
+  --bg: #0f1724;
+  --card: #0b1220;
+  --muted: #9aa6b2;
+  --accent: #e3b23c;
+  --success: #2ea44f;
+  --danger: #dc3545;
+  --reserved: #e38c3c;
+}
+
+/* ===================================
+ * 2. BASE E LAYOUT GERAL
+ * =================================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  margin: 0;
+  background: linear-gradient(180deg, #07101a 0%, #0b1724 100%);
+  color: #e6eef6;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ===================================
+ * 3. CABEÇALHO (HEADER)
+ * =================================== */
+.app-header {
+  background: var(--card);
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.app-header .brand h1 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 0.6px;
+  color: var(--accent);
+}
+
+.app-header .brand p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 18px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+/* ===================================
+ * 4. VITRINE (LISTA DE INSTRUMENTOS)
+ * =================================== */
+.vitrine-container h2 {
+  font-size: 28px;
+  color: var(--accent);
+  margin-top: 40px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid rgba(227, 178, 60, 0.2);
+  padding-bottom: 8px;
+}
+
+.grid-vitrine {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Card do Instrumento */
+.instrument-card {
+  background: var(--card);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  /* Indica que é clicável */
+}
+
+.instrument-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(227, 178, 60, 0.1);
+}
+
+.instrument-card .image-container {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  background: #182230;
+}
+
+.instrument-card .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s;
+}
+
+.instrument-card .details {
+  padding: 16px;
+  position: relative;
+}
+
+.instrument-card .details h3 {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  color: #fff;
+}
+
+.instrument-card .details p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.instrument-card .details .linha {
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 8px;
+  display: block;
+}
+
+/* Estados de carregamento/erro */
+.loading,
+.error {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px;
+  color: var(--muted);
+  font-size: 18px;
+}
+
+/* ===================================
+ * 5. STATUS TAGS
+ * =================================== */
+
+/* Estilo Base da Tag de Status (Usada no Card) */
+.status-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #07101a;
+  /* Cor do texto escura para contraste */
+}
+
+/* Cores de Fundo */
+.status-tag.disponível {
+  background: var(--success);
+}
+
+.status-tag.vendido {
+  background: var(--danger);
+}
+
+.status-tag.reservado {
+  background: var(--reserved);
+}
+
+/* Estilo da Tag de Status dentro do Modal (Flui com o texto) */
+.modal-details .status-tag {
+  position: static;
+  /* Anula o absolute */
+  top: auto;
+  right: auto;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 2px 6px;
+  font-size: 11px;
+  margin-left: 8px;
+  color: #07101a;
+  /* Mantém a cor escura do texto */
+}
+
+/* ===================================
+ * 6. MODAIS GERAIS (Sobre/Contato)
+ * =================================== */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: none;
+  /* ESSENCIAL: Oculta todos os modais por padrão */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal[aria-hidden="false"] {
+  display: flex;
+  /* O JS ativa isso ao abrir */
+}
+
+.modal-dialog {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  color: #fff;
+}
+
+.modal-dialog h2 {
+  color: var(--accent);
+  margin-top: 0;
+  border-bottom: 1px solid rgba(227, 178, 60, 0.2);
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+.modal-dialog a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.modal-dialog .btn-close {
+  background: var(--danger);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  display: block;
+  width: 100%;
+  font-weight: 600;
+}
+
+/* ===================================
+ * 7. MODAL DE GALERIA (Ampliação do Instrumento) - AJUSTES DE DESKTOP
+ * =================================== */
+
+#image-modal.modal {
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.modal-inner {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 95%;
+  width: 900px;
+  max-height: 90vh;
+  /* REMOVIDO: overflow-y: auto; (movemos o scroll para os filhos) */
+  position: relative;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  /* NOVO: Garante que as colunas se alinhem ao topo e ocupe o espaço */
+  align-items: flex-start;
+  /* NOVO: Gerencia o overflow do container pai */
+  overflow: hidden;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: var(--muted);
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  background: none;
+  border: none;
+  line-height: 1;
+  transition: color 0.2s;
+  z-index: 1001;
+}
+
+.modal-close-btn:hover {
+  color: #fff;
+}
+
+/* Galeria de Imagens */
+.gallery {
+  display: flex;
+  gap: 10px;
+  /* AJUSTE: Limita a altura da galeria principal no desktop */
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.main-image-view {
+  flex-grow: 1;
+  height: 100%;
+}
+
+#modal-image-gallery img {
+  /* Regra para todas as imagens no container de galeria */
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.thumbnails-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  /* NOVO: Preenche a altura da galeria */
+  max-height: 100%;
+  padding-right: 5px;
+  /* NOVO: Scroll-snap vertical para PC */
+  scroll-snap-type: y mandatory;
+}
+
+.gallery .thumb {
+  width: 80px;
+  min-width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s, border 0.2s;
+  border: 2px solid transparent;
+  /* NOVO: Scroll-snap vertical para PC */
+  scroll-snap-align: start;
+}
+
+.gallery .thumb:hover,
+.gallery .thumb.active {
+  opacity: 1;
+  border-color: var(--accent);
+}
+
+/* Detalhes do Modal */
+.modal-details {
+  padding: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  /* NOVO: Ocupa 100% da altura da grid row e permite scroll APENAS aqui */
+  height: 100%;
+  overflow-y: auto;
+}
+
+.modal-details h3 {
+  font-size: 22px;
+  margin-top: 0;
+}
+
+.modal-details p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* Botão de Contato/Ação */
+.btn-whatsapp {
+  background: #25d366;
+  color: #fff !important;
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 20px;
+  display: block;
+  transition: background 0.2s;
+}
+
+.btn-whatsapp:hover {
+  background: #128c7e;
+}
+
+/* ===================================
+ * 8. RODAPÉ (FOOTER)
+ * =================================== */
+.app-footer {
+  text-align: center;
+  padding: 24px 0;
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--muted);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.footer-nav {
+  margin: 10px 0;
+}
+
+.footer-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+  color: var(--accent);
+}
+
+.lista-servicos {
+  margin: 16px 0;
+  padding-left: 18px;
+}
+
+.lista-servicos li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.lista-servicos strong {
+  color: var(--muted);
+}
+
+
+/* ===================================
+ * 9. RESPONSIVIDADE - AJUSTES DE MOBILE
+ * =================================== */
+
+/* Telas de tablet/modal (900px) */
+@media (max-width: 900px) {
+
+  /* Modal de Galeria */
+  .modal-inner {
+    grid-template-columns: 1fr;
+    /* Uma coluna */
+    width: 95%;
+    max-height: 95vh;
+    /* Remove as regras de desktop que causavam "bagunça" */
+    overflow-y: auto;
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  .modal-details {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    /* Remove as regras de desktop que causavam "bagunça" */
+    height: auto;
+    overflow-y: visible;
+  }
+
+  /* Galeria */
+  .gallery {
+    flex-direction: column;
+    overflow-y: auto;
+    padding-bottom: 15px;
+    /* AJUSTE: Limita a altura da galeria no mobile para não estourar */
+    max-height: 70vh;
+  }
+
+  .thumbnails-list {
+    /* MUDANÇAS CRÍTICAS PARA CARROSSEL HORIZONTAL */
+    flex-direction: row;
+    /* Miniaturas na horizontal */
+    flex-wrap: nowrap;
+    /* CORREÇÃO: IMPEDE QUEBRA DE LINHA (ESSENCIAL PARA CARROSSEL) */
+    max-height: 150px;
+    justify-content: flex-start;
+    /* Alinha ao início para o scroll */
+    overflow-y: hidden;
+    overflow-x: auto;
+    /* PERMITE O SCROLL HORIZONTAL (CARROSSEL) */
+    scroll-snap-type: x mandatory;
+    /* NOVO: Scroll-snap horizontal */
+    padding-bottom: 10px;
+    /* Espaço para barra de scroll */
+  }
+
+  .gallery .thumb {
+    width: 80px;
+    min-width: 80px;
+    height: 80px;
+    /* NOVO: Espaçamento entre os thumbs */
+    margin-right: 8px;
+    /* NOVO: Alinha o thumb ao centro ao parar o scroll */
+    scroll-snap-align: center;
+  }
+
+  #modal-image-gallery img {
+    max-height: 40vh;
+  }
+}
+
+/* Telas de celular (600px) */
+@media (max-width: 600px) {
+  .app-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav {
+    margin-top: 10px;
+  }
+
+  nav a {
+    margin: 0 8px;
+  }
+
+  .wrap {
+    padding: 12px;
+  }
+
+  .grid-vitrine {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Controle de Instrumentos — Baratieri Luthieria</title>
+  <link rel="stylesheet" href="./style.css">
+  
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1>Baratieri Luthieria — Controle de Instrumentos</h1>
+        <p>Lista, cadastro, fotos e histórico — peça a peça</p>
+      </div>
+      <div style="margin-left:auto" class="small muted">Dados salvos localmente no navegador • imagens em IndexedDB</div>
+    </header>
+
+    
+    <div class="controls">
+      <input id="search" class="input" placeholder="Buscar por nome, modelo, comprador..." />
+      <select id="filterStatus" class="input">
+        <option value="">Filtrar por status (todos)</option>
+        <option value="Disponível">Disponível</option>
+        <option value="Vendido">Vendido</option>
+        <option value="Reservado">Reservado</option>
+      </select>
+      <select id="filterLinha" class="input">
+        <option value="">Filtrar por linha</option>
+      </select>
+      <button id="btnNew" class="btn">+ Novo instrumento</button>
+      <button id="btnExport" class="btn ghost">Exportar JSON</button>
+      <button id="btnImport" class="btn ghost">Importar JSON</button>
+      <input id="fileImport" type="file" accept="application/json" style="display:none" />
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h3 style="margin-top:0">Inventário</h3>
+        <div class="table-wrap">
+          <table id="tbl">
+            <thead>
+              <tr>
+                <th>Foto</th>
+                <th>Etiqueta</th>
+                <th>Modelo</th>
+                <th>Madeira </th>
+                <th>Linha </th>
+                <th>Status</th>
+                <th>Comprador</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+          </table>
+        </div>
+        <div id="empty" class="empty">Nenhum instrumento cadastrado ainda.</div>
+      </section>
+
+      <aside class="card">
+        <h3 style="margin-top:0">Formulário rápido</h3>
+        <form id="form">
+          <div class="row">
+            <div style="flex:1">
+              <label>Nome (ex: Jaci)</label>
+              <input id="nome" class="input" required />
+            </div>
+            <div style="width:110px">
+              <label>Ano</label>
+              <input id="ano" class="input" required placeholder="2025" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex:1">
+              <label>Modelo (violão, viola, cavaquinho)</label>
+              <input id="modelo" class="input" placeholder="Violão Clássico" />
+            </div>
+            <div style="width:140px">
+              <label>Status</label>
+              <select id="status" class="input">
+                <option>Disponível</option>
+                <option>Vendido</option>
+                <option>Reservado</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="flex:1">
+              <label>Madeira</label>
+              <input id="madeira" class="input" placeholder="Araucária, Cedro, Pau-ferro..." />
+            </div>
+            <div style="width:140px">
+              <label>Nº de série (opcional)</label>
+              <input id="serie" class="input" placeholder="001" />
+            </div>
+          </div>
+          <div class="row">
+            <div style="flex:1">
+              <label>Linha</label>
+              <input id="linha" class="input" placeholder="Raiz, Hauser..." />
+            </div>
+          </div>
+
+          <div>
+            <label>Observações</label>
+            <textarea id="obs" placeholder="Notas técnicas, afinações, passagem de dedos..."></textarea>
+          </div>
+
+          <hr style="opacity:0.06;margin:12px 0" />
+
+          <h4 style="margin:6px 0 10px">Dados do comprador (preenchimento opcional)</h4>
+          <div class="row">
+            <div style="flex:1">
+              <label>Nome do comprador</label>
+              <input id="comprador" class="input" />
+            </div>
+            <div style="width:140px">
+              <label>Telef / WhatsApp</label>
+              <input id="telefone" class="input" />
+            </div>
+          </div>
+
+          <div style="margin-top:8px">
+            <label>Fotos do instrumento (pode enviar várias)</label>
+            <input id="fotos" type="file" accept="image/*" multiple class="input" />
+            <div class="small muted" style="margin-top:6px">As imagens são salvas localmente no seu navegador (IndexedDB).</div>
+          </div>
+
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button id="save" class="btn" type="submit">Salvar instrumento</button>
+            <button id="reset" type="button" class="btn ghost">Limpar</button>
+          </div>
+        </form>
+
+        <footer>
+          <div>Armazenamento local: <span id="count">0</span> instrumentos</div>
+          <div style="margin-top:8px" class="small muted">Exporte para CSV antes de migrar para outro dispositivo.</div>
+        </footer>
+      </aside>
+    </div>
+
+    <!-- modal for image gallery -->
+    <div id="modal" style="display:none" class="modal" role="dialog">
+      <div class="inner">
+        <button id="closeModal" class="btn ghost" style="float:right">Fechar</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </div>
+</body>
+</html>
