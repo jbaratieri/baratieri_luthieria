@@ -1,0 +1,15 @@
+# Arquivos grandes / trabalho
+*.psd
+*.zip
+*.mp4
+*.mov
+*.bak
+
+# Pastas locais
+.backup/
+assets/originais/
+assets/raw/
+
+# Sistema
+.DS_Store
+Thumbs.db

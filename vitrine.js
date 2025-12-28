@@ -128,36 +128,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Render ---
 
     function renderCard(instrumento) {
-        const card = document.createElement('div');
-        card.className = 'instrument-card';
+    const card = document.createElement('div');
+    card.className = 'instrument-card';
 
-        const imageContainer = document.createElement('div');
-        imageContainer.className = 'image-container';
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'image-container';
 
-        const img = document.createElement('img');
-        img.alt = `${instrumento.nome} ${instrumento.modelo || ''}`;
+    const img = document.createElement('img');
+    img.alt = `${instrumento.nome} ${instrumento.modelo || ''}`;
 
-        findImagePath(instrumento.id, 1, (path) => {
-            img.src = path || 'placeholder-image.svg';
-        });
+    findImagePath(instrumento.id, 1, (path) => {
+        img.src = path || './images/placeholder.webp';
+    });
 
-        imageContainer.appendChild(img);
+    imageContainer.appendChild(img);
 
-        card.appendChild(imageContainer);
-        card.innerHTML += `
-            <div class="details">
-                <span class="status-tag ${sanitizeStatus(instrumento.status)}">
-                    ${instrumento.status || 'Disponível'}
-                </span>
-                <h3>${instrumento.nome}</h3>
-                <p>Modelo: ${instrumento.modelo || 'Custom'}</p>
-                <p>Madeira: ${instrumento.madeira || 'Custom'}</p>
-            </div>
-        `;
+    const details = document.createElement('div');
+    details.className = 'details';
+    details.innerHTML = `
+        <span class="status-tag ${sanitizeStatus(instrumento.status)}">
+            ${instrumento.status || 'Disponível'}
+        </span>
+        <h3>${instrumento.nome}</h3>
+        <p>Modelo: ${instrumento.modelo || 'Custom'}</p>
+        <p>Madeira: ${instrumento.madeira || 'Custom'}</p>
+    `;
 
-        card.onclick = () => openGalleryModal(instrumento);
-        instrumentsList.appendChild(card);
-    }
+    card.appendChild(imageContainer);
+    card.appendChild(details);
+
+    card.onclick = () => openGalleryModal(instrumento);
+    instrumentsList.appendChild(card);
+}
+
 
     async function loadInstruments() {
         loadingState.style.display = 'block';
