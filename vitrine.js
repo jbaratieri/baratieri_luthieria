@@ -1,4 +1,4 @@
-// vitrine.js — Versão 2.1 (WebP + PNG fallback)
+// vitrine.js — Versão 2.3 (Fullscreen Gallery + Setas + Cursores)
 
 document.addEventListener('DOMContentLoaded', () => {
     const instrumentsList = document.getElementById('instrumentos-list');
@@ -14,11 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // CONFIG
     const DATA_URL = './data/baratieri_instruments.json';
     const IMAGES_BASE_PATH = './images/instrumentos/';
-    const IMAGE_EXTENSIONS = ['webp', 'png']; // prioridade
-    const WHATSAPP_NUMBER = '+5545920028659';
+    const IMAGE_EXTENSIONS = ['webp', 'png'];
+    const WHATSAPP_NUMBER = '5545920028659';
     const MAX_IMAGES = 20;
-
-    let instrumentsData = [];
 
     // --- Helpers ---
 
@@ -37,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
     }
 
-    // 🔹 Resolve automaticamente webp → png
     function findImagePath(instrumentId, index, callback) {
         let extIdx = 0;
 
@@ -57,7 +54,98 @@ document.addEventListener('DOMContentLoaded', () => {
         tryNext();
     }
 
-    // --- Modal ---
+    // --- FULLSCREEN ---
+
+    function openFullscreenGallery(images, startIndex = 0) {
+        let currentIndex = startIndex;
+
+        const fs = document.createElement('div');
+        fs.className = 'fullscreen-gallery';
+
+        fs.innerHTML = `
+            <button class="fs-close">×</button>
+            <button class="fs-nav fs-prev">‹</button>
+            <button class="fs-nav fs-next">›</button>
+            <div class="fs-track"></div>
+        `;
+
+        const track = fs.querySelector('.fs-track');
+        const btnPrev = fs.querySelector('.fs-prev');
+        const btnNext = fs.querySelector('.fs-next');
+
+        images.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            track.appendChild(img);
+        });
+
+        // 👉 TRACK STYLE AQUI (JS)
+        track.style.display = 'flex';
+        track.style.width = '100%';
+        track.style.height = '100%';
+        track.style.overflowX = 'auto';
+        track.style.scrollSnapType = 'x mandatory';
+        track.style.cursor = 'grab';
+
+        document.body.appendChild(fs);
+        document.body.style.overflow = 'hidden';
+
+        const update = () => {
+            track.scrollTo({
+                left: currentIndex * window.innerWidth,
+                behavior: 'smooth'
+            });
+        };
+
+        update();
+
+        btnPrev.onclick = () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                update();
+            }
+        };
+
+        btnNext.onclick = () => {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                update();
+            }
+        };
+
+        track.addEventListener('scroll', () => {
+            currentIndex = Math.round(track.scrollLeft / window.innerWidth);
+        });
+
+        track.addEventListener('mousedown', () => {
+            track.style.cursor = 'grabbing';
+        });
+        track.addEventListener('mouseup', () => {
+            track.style.cursor = 'grab';
+        });
+        track.addEventListener('mouseleave', () => {
+            track.style.cursor = 'grab';
+        });
+
+        fs.querySelector('.fs-close').onclick = close;
+        fs.onclick = e => e.target === fs && close();
+
+        document.addEventListener('keydown', esc);
+
+        function esc(e) {
+            if (e.key === 'Escape') close();
+            if (e.key === 'ArrowRight') btnNext.click();
+            if (e.key === 'ArrowLeft') btnPrev.click();
+        }
+
+        function close() {
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', esc);
+            fs.remove();
+        }
+    }
+
+    // --- MODAL ---
 
     function closeGalleryModal() {
         imageModal.style.display = 'none';
@@ -69,8 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
         galleryContainer.innerHTML = '';
         detailsContainer.innerHTML = '';
 
+        let currentIndex = 0;
+
         const mainImageDiv = document.createElement('div');
         mainImageDiv.className = 'main-image-view';
+        mainImageDiv.style.cursor = 'zoom-in';
         mainImageDiv.innerHTML = `<img id="main-modal-img" alt="${instrumento.nome}" />`;
 
         const thumbsDiv = document.createElement('div');
@@ -79,31 +170,44 @@ document.addEventListener('DOMContentLoaded', () => {
         galleryContainer.appendChild(mainImageDiv);
         galleryContainer.appendChild(thumbsDiv);
 
+        const allImages = [];
         let firstLoaded = false;
 
         for (let i = 1; i <= MAX_IMAGES; i++) {
             findImagePath(instrumento.id, i, (path) => {
                 if (!path) return;
 
+                const index = allImages.length;
+                allImages.push(path);
+
                 if (!firstLoaded) {
                     document.getElementById('main-modal-img').src = path;
+                    currentIndex = index;
                     firstLoaded = true;
                 }
 
                 const thumb = document.createElement('img');
                 thumb.className = 'thumb';
                 thumb.src = path;
-                thumb.dataset.src = path;
 
-                thumb.onclick = (e) => {
-                    document.getElementById('main-modal-img').src = e.target.dataset.src;
-                    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-                    e.target.classList.add('active');
+                thumb.onclick = () => {
+                    document.getElementById('main-modal-img').src = path;
+                    currentIndex = index;
+
+                    document.querySelectorAll('.thumb')
+                        .forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
                 };
 
                 thumbsDiv.appendChild(thumb);
             });
         }
+
+        mainImageDiv.onclick = () => {
+            if (allImages.length) {
+                openFullscreenGallery(allImages, currentIndex);
+            }
+        };
 
         const whatsappLink = createWhatsappLink(instrumento);
 
@@ -125,66 +229,35 @@ document.addEventListener('DOMContentLoaded', () => {
         imageModal.style.display = 'flex';
     }
 
-    // --- Render ---
+    // --- RENDER ---
 
     function renderCard(instrumento) {
-    const card = document.createElement('div');
-    card.className = 'instrument-card';
+        const card = document.createElement('div');
+        card.className = 'instrument-card';
 
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'image-container';
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'image-container';
 
-    const img = document.createElement('img');
-    img.alt = `${instrumento.nome} ${instrumento.modelo || ''}`;
+        const img = document.createElement('img');
+        img.alt = `${instrumento.nome} ${instrumento.modelo || ''}`;
 
-    findImagePath(instrumento.id, 1, (path) => {
-        img.src = path || './images/placeholder.webp';
-    });
+        findImagePath(instrumento.id, 1, path => {
+            img.src = path || './images/placeholder.webp';
+        });
 
-    imageContainer.appendChild(img);
+        imageContainer.appendChild(img);
+        card.appendChild(imageContainer);
+        card.appendChild(document.createElement('div')).className = 'details';
 
-    const details = document.createElement('div');
-    details.className = 'details';
-    details.innerHTML = `
-        <span class="status-tag ${sanitizeStatus(instrumento.status)}">
-            ${instrumento.status || 'Disponível'}
-        </span>
-        <h3>${instrumento.nome}</h3>
-        <p>Modelo: ${instrumento.modelo || 'Custom'}</p>
-        <p>Madeira: ${instrumento.madeira || 'Custom'}</p>
-    `;
-
-    card.appendChild(imageContainer);
-    card.appendChild(details);
-
-    card.onclick = () => openGalleryModal(instrumento);
-    instrumentsList.appendChild(card);
-}
-
-
-    async function loadInstruments() {
-        loadingState.style.display = 'block';
-        errorState.style.display = 'none';
-
-        try {
-            const res = await fetch(DATA_URL);
-            if (!res.ok) throw new Error('JSON não encontrado');
-            instrumentsData = await res.json();
-
-            instrumentsList.innerHTML = '';
-            loadingState.style.display = 'none';
-
-            instrumentsData.slice().reverse().forEach(renderCard);
-
-        } catch (e) {
-            loadingState.style.display = 'none';
-            errorState.style.display = 'block';
-            errorState.textContent = e.message;
-        }
+        card.onclick = () => openGalleryModal(instrumento);
+        instrumentsList.appendChild(card);
     }
 
     if (closeModalBtn) closeModalBtn.onclick = closeGalleryModal;
     if (imageModal) imageModal.onclick = e => e.target === imageModal && closeGalleryModal();
 
-    loadInstruments();
+    fetch(DATA_URL)
+        .then(r => r.json())
+        .then(data => data.slice().reverse().forEach(renderCard))
+        .catch(() => errorState.style.display = 'block');
 });

@@ -1,12 +1,14 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Controle de Instrumentos — Baratieri Luthieria</title>
   <link rel="stylesheet" href="./style.css">
-  
+
 </head>
+
 <body>
   <div class="wrap">
     <header>
@@ -14,10 +16,11 @@
         <h1>Baratieri Luthieria — Controle de Instrumentos</h1>
         <p>Lista, cadastro, fotos e histórico — peça a peça</p>
       </div>
-      <div style="margin-left:auto" class="small muted">Dados salvos localmente no navegador • imagens em IndexedDB</div>
+      <div style="margin-left:auto" class="small muted">Dados salvos localmente no navegador • imagens em IndexedDB
+      </div>
     </header>
 
-    
+
     <div class="controls">
       <input id="search" class="input" placeholder="Buscar por nome, modelo, comprador..." />
       <select id="filterStatus" class="input">
@@ -33,6 +36,9 @@
       <button id="btnExport" class="btn ghost">Exportar JSON</button>
       <button id="btnImport" class="btn ghost">Importar JSON</button>
       <input id="fileImport" type="file" accept="application/json" style="display:none" />
+      <button id="btnImportImages" class="btn ghost">Importar imagens (ZIP)</button>
+      <input id="fileImportImages" type="file" accept=".zip" style="display:none" />
+
     </div>
 
     <div class="grid">
@@ -127,7 +133,8 @@
           <div style="margin-top:8px">
             <label>Fotos do instrumento (pode enviar várias)</label>
             <input id="fotos" type="file" accept="image/*" multiple class="input" />
-            <div class="small muted" style="margin-top:6px">As imagens são salvas localmente no seu navegador (IndexedDB).</div>
+            <div class="small muted" style="margin-top:6px">As imagens são salvas localmente no seu navegador
+              (IndexedDB).</div>
           </div>
 
           <div style="display:flex;gap:8px;margin-top:10px">
@@ -151,7 +158,10 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
     <script src="./app.js" defer></script>
+
   </div>
 </body>
+
 </html>

@@ -1,5 +1,5 @@
 // app.js — versão completa com exclusão individual de fotos no IndexedDB
-(function() {
+(function () {
   'use strict';
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -177,7 +177,7 @@
       const DRAFT_KEY = 'baratieri_form_draft_v1';
       function saveDraft() { try { const obj = {}; inputs.forEach(k => { const el = $id(k); obj[k] = el && el.value ? el.value : ''; }); localStorage.setItem(DRAFT_KEY, JSON.stringify(obj)); } catch (e) { warn(e); } }
       function loadDraft() { try { const raw = localStorage.getItem(DRAFT_KEY); if (!raw) return; const obj = JSON.parse(raw); inputs.forEach(k => { const el = $id(k); if (el && obj[k] !== undefined) el.value = obj[k]; }); } catch (e) { warn(e); } }
-      function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+      function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) { } }
 
       function sanitizeInstrument(it) {
         const out = Object.assign({}, it);
@@ -340,7 +340,7 @@
 
               const blob = r.thumb ? new Blob([r.thumb], { type: r.thumbType || r.type || 'image/jpeg' }) : new Blob([r.blob], { type: r.type || 'image/jpeg' });
               const url = URL.createObjectURL(blob);
-              
+
               const img = document.createElement('img');
               img.src = url;
               img.style.width = '100%';
@@ -352,14 +352,14 @@
               delBtn.innerHTML = '&times;';
               delBtn.title = 'Excluir foto';
               delBtn.style.cssText = 'position:absolute; top:4px; right:4px; background:rgba(220,53,69,0.9); color:white; border:none; border-radius:50%; width:24px; height:24px; cursor:pointer; font-weight:bold; line-height:1;';
-              
+
               delBtn.onclick = async () => {
-                if(confirm('Deseja excluir esta foto permanentemente?')){
+                if (confirm('Deseja excluir esta foto permanentemente?')) {
                   try {
                     await deleteSingleImage(r.id);
                     container.remove();
                     render(); // Re-renderiza a tabela principal para atualizar a thumb se necessário
-                  } catch(err) { alert('Erro ao excluir: ' + err); }
+                  } catch (err) { alert('Erro ao excluir: ' + err); }
                 }
               };
 
@@ -370,7 +370,7 @@
             if (modalContent) { modalContent.innerHTML = ''; modalContent.appendChild(out); }
           } catch (e) { if (modalContent) modalContent.innerHTML = '<div class="small muted">Erro ao carregar imagens.</div>'; console.warn(e); }
         }
-        
+
         if (action === 'edit') {
           const it = instruments.find(x => x.id === id);
           if (!it) return;
@@ -378,7 +378,7 @@
           setFormData(it);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        
+
         if (action === 'delete') {
           if (!confirm('Excluir instrumento? Esta ação não pode ser desfeita. As imagens relacionadas também serão removidas.')) return;
           instruments = instruments.filter(x => x.id !== id);
@@ -469,13 +469,134 @@
       // Shortcut 'N'
       document.addEventListener('keydown', e => { if (e.key.toLowerCase() === 'n' && (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA')) { e.preventDefault(); const n = $id('nome'); if (n) n.focus(); } });
 
-      window.__baratieri = { getAll: () => instruments, save, load, openDb };
-      log('app.js initialised');
+      window.__baratieri = {
+        getAll: () => instruments,
+        save,
+        load,
+        openDb,
+        deleteImagesByInstrument,
+        saveImageToDb,
+        render
+      };
 
     } catch (ex) {
       console.error('Fatal error', ex);
       alert('Erro ao iniciar o admin: ' + (ex && ex.message ? ex.message : ex));
     }
   });
+  /* =========================================================
+   IMPORTAÇÃO DE IMAGENS (ZIP → IndexedDB)
+   ========================================================= */
+
+  const btnImportImages = document.getElementById('btnImportImages');
+  const fileImportImages = document.getElementById('fileImportImages');
+
+  if (btnImportImages && fileImportImages) {
+    btnImportImages.addEventListener('click', () => {
+      fileImportImages.click();
+    });
+
+    fileImportImages.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        await importImagesFromZip(file);
+      } catch (err) {
+        alert('Erro ao importar imagens.\nVeja o console.');
+        console.error(err);
+      } finally {
+        fileImportImages.value = '';
+      }
+    });
+  }
+
+  // FIX: removed duplicated deleteImagesByInstrument (was using openImagesDB undefined)
+
+
+
+  async function importImagesFromZip(zipFile) {
+  const JSZipLib = window.JSZip || await ensureJSZip();
+  const zip = await JSZipLib.loadAsync(zipFile);
+
+  let restored = 0;
+  let ignored = 0;
+
+  // Mapeia: instrumentId -> arquivos
+  const foldersMap = {};
+
+  // 1️⃣ Percorre TODOS os arquivos do zip (não pastas)
+  for (const fullPath in zip.files) {
+    const entry = zip.files[fullPath];
+    if (entry.dir) continue;
+
+    // pega somente o primeiro nível: BL-XXXXXX/arquivo.png
+    const parts = fullPath.split('/');
+    if (parts.length < 2) continue;
+
+    const instrumentId = parts[0].trim();
+    const fileName = parts.slice(1).join('/');
+
+    if (!/\.(png|jpg|jpeg|webp)$/i.test(fileName)) continue;
+
+    if (!foldersMap[instrumentId]) {
+      foldersMap[instrumentId] = [];
+    }
+
+    foldersMap[instrumentId].push({
+      name: fileName,
+      entry
+    });
+  }
+
+  // 2️⃣ Para cada instrumento encontrado no ZIP
+  for (const instrumentId of Object.keys(foldersMap)) {
+
+    // valida se o instrumento existe no app
+    const exists = window.__baratieri
+      .getAll()
+      .some(i => String(i.id) === String(instrumentId));
+
+    if (!exists) {
+      ignored++;
+      continue;
+    }
+
+    // remove imagens antigas
+    await window.__baratieri.deleteImagesByInstrument(instrumentId);
+
+    // ordena arquivos (1.png, 2.png, etc)
+    const files = foldersMap[instrumentId].sort((a, b) => {
+      const na = parseInt(a.name.match(/(\d+)/)?.[1] || 0);
+      const nb = parseInt(b.name.match(/(\d+)/)?.[1] || 0);
+      return na - nb;
+    });
+
+    // salva cada imagem no instrumento correto
+    for (const f of files) {
+      const blob = await f.entry.async('blob');
+      const file = new File(
+        [blob],
+        f.name.split('/').pop(),
+        { type: blob.type || 'image/webp' }
+      );
+
+      await window.__baratieri.saveImageToDb(instrumentId, file);
+    }
+
+    restored++;
+  }
+
+  alert(
+    `Importação concluída.\n\n` +
+    `✔️ Instrumentos restaurados: ${restored}\n` +
+    `⚠️ Pastas ignoradas: ${ignored}`
+  );
+
+  window.__baratieri.render();
+}
+
+
+
 
 })();
