@@ -474,6 +474,101 @@ nav a:hover {
   z-index: 10000;
 }
 
+.instrument-card {
+  border-radius: 14px;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+.instrument-card .image-container {
+  height: 420px;
+  background: linear-gradient(
+    180deg,
+    #121c2b 0%,
+    #0b1220 100%
+  );
+}
+.instrument-card .details h3 {
+  font-size: 18px;
+  letter-spacing: 0.4px;
+}
+
+.instrument-card .details .modelo {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.instrument-card .details .linha {
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.status-tag {
+  backdrop-filter: blur(6px);
+  background: rgba(227, 178, 60, 0.85);
+  box-shadow: 0 4px 10px rgba(0,0,0,.35);
+}
+.status-tag.vendido {
+  background: rgba(220, 53, 69, 0.85);
+}
+.instrument-card:hover .image-container img {
+  transform: scale(1.04);
+}
+
+.instrument-card .image-container img {
+  transition: transform .6s ease;
+}
+.catalog-intro {
+  max-width: 720px;
+  margin: 0 0 32px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+.instrument-card[data-unique="true"] .image-container::after {
+  content: "Peça Única";
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(15, 23, 36, 0.75);
+  color: var(--accent);
+  font-size: 11px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 10px rgba(0,0,0,.35);
+  z-index: 2;
+}
+.instrument-card[data-status="vendido"] .image-container::after {
+  content: "Obra Vendida";
+  color: #fff;
+  background: rgba(220, 53, 69, 0.85);
+}
+
+
+
+.instrument-card .image-container {
+  position: relative;
+}
+.instrument-card .image-container img {
+  position: relative;
+  z-index: 1;
+}
+.instrument-card .image-container::after {
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+/* No hover do card, o selo some suavemente */
+.instrument-card:hover .image-container::after {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+
+
 
 
 /* ===================================

@@ -234,6 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCard(instrumento) {
         const card = document.createElement('div');
         card.className = 'instrument-card';
+        card.dataset.unique = 'true';
+        card.dataset.status = sanitizeStatus(instrumento.status);
 
         const imageContainer = document.createElement('div');
         imageContainer.className = 'image-container';
@@ -246,18 +248,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         imageContainer.appendChild(img);
+
+        const details = document.createElement('div');
+        details.className = 'details';
+
+        details.innerHTML = `
+        <h3>${instrumento.nome}</h3>
+        ${instrumento.modelo ? `<p class="modelo">${instrumento.modelo}</p>` : ''}
+        <p class="linha">${instrumento.linha || ''}</p>
+        <span class="status-tag ${sanitizeStatus(instrumento.status)}">
+            ${instrumento.status || 'Disponível'}
+        </span>
+    `;
+
         card.appendChild(imageContainer);
-        card.appendChild(document.createElement('div')).className = 'details';
+        card.appendChild(details);
 
         card.onclick = () => openGalleryModal(instrumento);
+
         instrumentsList.appendChild(card);
     }
+
 
     if (closeModalBtn) closeModalBtn.onclick = closeGalleryModal;
     if (imageModal) imageModal.onclick = e => e.target === imageModal && closeGalleryModal();
 
     fetch(DATA_URL)
-        .then(r => r.json())
-        .then(data => data.slice().reverse().forEach(renderCard))
-        .catch(() => errorState.style.display = 'block');
+    .then(r => {
+        if (!r.ok) throw new Error('Erro ao carregar JSON');
+        return r.json();
+    })
+    .then(data => {
+        loadingState.style.display = 'none';
+
+        if (!data.length) {
+            errorState.style.display = 'block';
+            return;
+        }
+
+        data.slice().reverse().forEach(renderCard);
+    })
+    .catch(err => {
+        console.error(err);
+        loadingState.style.display = 'none';
+        errorState.style.display = 'block';
+    });
+
 });
