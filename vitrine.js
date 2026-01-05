@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
     }
 
+
     function findImagePath(instrumentId, index, callback) {
         let extIdx = 0;
 
@@ -221,10 +222,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 </span>
             </p>
             ${instrumento.obs ? `<p><strong>Detalhes:</strong> ${instrumento.obs}</p>` : ''}
-            <a href="${whatsappLink}" target="_blank" class="btn-whatsapp">
-                Solicitar Orçamento
-            </a>
+            <button class="btn-whatsapp" id="btn-whatsapp">
+  Solicitar Orçamento
+</button>
+
         `;
+const btnZap = document.getElementById('btn-whatsapp');
+
+btnZap.addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    window.open(whatsappLink, '_blank', 'noopener');
+});
 
         imageModal.style.display = 'flex';
     }
@@ -274,24 +283,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (imageModal) imageModal.onclick = e => e.target === imageModal && closeGalleryModal();
 
     fetch(DATA_URL)
-    .then(r => {
-        if (!r.ok) throw new Error('Erro ao carregar JSON');
-        return r.json();
-    })
-    .then(data => {
-        loadingState.style.display = 'none';
+        .then(r => {
+            if (!r.ok) throw new Error('Erro ao carregar JSON');
+            return r.json();
+        })
+        .then(data => {
+            loadingState.style.display = 'none';
 
-        if (!data.length) {
+            if (!data.length) {
+                errorState.style.display = 'block';
+                return;
+            }
+
+            data.slice().reverse().forEach(renderCard);
+        })
+        .catch(err => {
+            console.error(err);
+            loadingState.style.display = 'none';
             errorState.style.display = 'block';
-            return;
-        }
-
-        data.slice().reverse().forEach(renderCard);
-    })
-    .catch(err => {
-        console.error(err);
-        loadingState.style.display = 'none';
-        errorState.style.display = 'block';
-    });
+        });
 
 });
