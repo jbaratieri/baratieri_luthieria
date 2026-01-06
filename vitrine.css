@@ -675,16 +675,15 @@ nav a:hover {
 @media (max-width: 900px) {
 
   /* Modal de Galeria */
-  .modal-inner {
-    grid-template-columns: 1fr;
-    /* Uma coluna */
-    width: 95%;
-    max-height: 95vh;
-    /* Remove as regras de desktop que causavam "bagunça" */
-    overflow-y: auto;
-    align-items: stretch;
-    overflow: visible;
-  }
+ .modal-inner {
+  grid-template-columns: 1fr;
+  width: 95%;
+  height: 95vh;          /* 🔑 altura real */
+  max-height: 95vh;
+  overflow-y: auto;     /* scroll ÚNICO */
+  align-items: stretch;
+}
+
 
   .modal-details {
     border-left: none;
@@ -701,6 +700,8 @@ nav a:hover {
     padding-bottom: 15px;
     /* AJUSTE: Limita a altura da galeria no mobile para não estourar */
     max-height: 70vh;
+    min-height: 45vh;   /* 🔑 RESERVA espaço visual */
+    max-height: none;
   }
 
   .thumbnails-list {
@@ -732,7 +733,9 @@ nav a:hover {
   }
 
   #modal-image-gallery img {
-    max-height: 40vh;
+    max-height: 45vh;
+    width: 100%;
+    object-fit: contain;
   }
 }
 
