@@ -241,27 +241,35 @@ btnZap.addEventListener('click', (e) => {
     // --- RENDER ---
 
     function renderCard(instrumento) {
-        const card = document.createElement('div');
-        card.className = 'instrument-card';
+    const card = document.createElement('div');
+    card.className = 'instrument-card';
+
+    // Só adiciona "unique" se realmente for peça única
+    if (instrumento.unique === true) {
         card.dataset.unique = 'true';
+    }
+
+    // Adiciona status apenas se existir
+    if (instrumento.status) {
         card.dataset.status = sanitizeStatus(instrumento.status);
+    }
 
-        const imageContainer = document.createElement('div');
-        imageContainer.className = 'image-container';
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'image-container';
 
-        const img = document.createElement('img');
-        img.alt = `${instrumento.nome} ${instrumento.modelo || ''}`;
+    const img = document.createElement('img');
+    img.alt = `${instrumento.nome} ${instrumento.modelo || ''}`;
 
-        findImagePath(instrumento.id, 1, path => {
-            img.src = path || './images/placeholder.webp';
-        });
+    findImagePath(instrumento.id, 1, path => {
+        img.src = path || './images/placeholder.webp';
+    });
 
-        imageContainer.appendChild(img);
+    imageContainer.appendChild(img);
 
-        const details = document.createElement('div');
-        details.className = 'details';
+    const details = document.createElement('div');
+    details.className = 'details';
 
-        details.innerHTML = `
+    details.innerHTML = `
         <h3>${instrumento.nome}</h3>
         ${instrumento.modelo ? `<p class="modelo">${instrumento.modelo}</p>` : ''}
         <p class="linha">${instrumento.linha || ''}</p>
@@ -270,13 +278,13 @@ btnZap.addEventListener('click', (e) => {
         </span>
     `;
 
-        card.appendChild(imageContainer);
-        card.appendChild(details);
+    card.appendChild(imageContainer);
+    card.appendChild(details);
 
-        card.onclick = () => openGalleryModal(instrumento);
+    card.onclick = () => openGalleryModal(instrumento);
 
-        instrumentsList.appendChild(card);
-    }
+    instrumentsList.appendChild(card);
+}
 
 
     if (closeModalBtn) closeModalBtn.onclick = closeGalleryModal;
