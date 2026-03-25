@@ -27,6 +27,7 @@ body {
   min-height: 100vh;
 }
 
+
 .wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -38,43 +39,53 @@ body {
  * =================================== */
 .app-header {
   background: var(--card);
-  padding: 18px 24px;
+  padding: 12px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-.app-header .brand h1 {
-  margin: 0;
-  font-size: 24px;
-  letter-spacing: 0.6px;
-  color: var(--accent);
+.app-header .brand {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+
+.logo-hero {
+  max-height: 300px;
+  width: auto;
+  margin-bottom: 4px;
 }
 
 .app-header .brand p {
   margin: 0;
+  font-size: 1em;
   color: var(--muted);
-  font-size: 14px;
 }
 
 nav a {
   color: var(--muted);
   text-decoration: none;
-  margin-left: 18px;
-  font-weight: 500;
-  transition: color 0.2s;
+  margin-left: 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.2s, border-bottom 0.2s;
 }
 
 nav a:hover {
   color: var(--accent);
+  border-bottom: 2px solid var(--accent);
 }
+
+
 
 /* ===================================
  * 4. VITRINE (LISTA DE INSTRUMENTOS)
  * =================================== */
 .vitrine-container h2 {
-  font-size: 28px;
+  font-size: 1.5em;
   color: var(--accent);
   margin-top: 40px;
   margin-bottom: 24px;
@@ -310,11 +321,10 @@ nav a:hover {
   color: #fff;
 }
 
-/* Galeria de Imagens */
+/* Galeria - Desktop */
 .gallery {
   display: flex;
   gap: 10px;
-  /* AJUSTE: Limita a altura da galeria principal no desktop */
   max-height: 80vh;
   overflow: hidden;
 }
@@ -325,7 +335,6 @@ nav a:hover {
 }
 
 #modal-image-gallery img {
-  /* Regra para todas as imagens no container de galeria */
   width: 100%;
   max-height: 500px;
   object-fit: contain;
@@ -337,14 +346,13 @@ nav a:hover {
   flex-direction: column;
   gap: 8px;
   overflow-y: auto;
-  /* NOVO: Preenche a altura da galeria */
   max-height: 100%;
   padding-right: 5px;
-  /* NOVO: Scroll-snap vertical para PC */
   scroll-snap-type: y mandatory;
 }
 
 .gallery .thumb {
+  flex: 0 0 auto;
   width: 80px;
   min-width: 80px;
   height: 80px;
@@ -354,7 +362,6 @@ nav a:hover {
   opacity: 0.8;
   transition: opacity 0.2s, border 0.2s;
   border: 2px solid transparent;
-  /* NOVO: Scroll-snap vertical para PC */
   scroll-snap-align: start;
 }
 
@@ -363,6 +370,7 @@ nav a:hover {
   opacity: 1;
   border-color: var(--accent);
 }
+
 
 /* Detalhes do Modal */
 .modal-details {
@@ -664,79 +672,66 @@ nav a:hover {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-
-
-
 /* ===================================
- * 9. RESPONSIVIDADE - AJUSTES DE MOBILE
- * =================================== */
+ * 9. RESPONSIVIDADE - AJUSTES DE MOBILE
+ * =================================== */
 
 /* Telas de tablet/modal (900px) */
 @media (max-width: 900px) {
 
   /* Modal de Galeria */
- .modal-inner {
-  grid-template-columns: 1fr;
-  width: 95%;
-  height: 95vh;          /* 🔑 altura real */
-  max-height: 95vh;
-  overflow-y: auto;     /* scroll ÚNICO */
-  align-items: stretch;
-}
-
+  .modal-inner {
+    grid-template-columns: 1fr;
+    width: 95%;
+    height: 95vh;          /* altura real */
+    max-height: 95vh;
+    overflow-y: auto;      /* scroll único */
+    align-items: stretch;
+  }
 
   .modal-details {
     border-left: none;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    /* Remove as regras de desktop que causavam "bagunça" */
     height: auto;
     overflow-y: visible;
   }
 
-  /* Galeria */
-  .gallery {
-    flex-direction: column;
-    overflow-y: auto;
-    padding-bottom: 15px;
-    /* AJUSTE: Limita a altura da galeria no mobile para não estourar */
-    max-height: 70vh;
-    min-height: 45vh;   /* 🔑 RESERVA espaço visual */
-    max-height: none;
-  }
+  /* Galeria - Mobile */
+.gallery {
+  flex-direction: column;
+  overflow: hidden;       /* evita que as thumbs escapem */
+  padding-bottom: 15px;
+  max-height: 70vh;
+  min-height: 45vh;
+}
 
-  .thumbnails-list {
-    /* MUDANÇAS CRÍTICAS PARA CARROSSEL HORIZONTAL */
-    flex-direction: row;
-    /* Miniaturas na horizontal */
-    flex-wrap: nowrap;
-    /* CORREÇÃO: IMPEDE QUEBRA DE LINHA (ESSENCIAL PARA CARROSSEL) */
-    max-height: 150px;
-    justify-content: flex-start;
-    /* Alinha ao início para o scroll */
-    overflow-y: hidden;
-    overflow-x: auto;
-    /* PERMITE O SCROLL HORIZONTAL (CARROSSEL) */
-    scroll-snap-type: x mandatory;
-    /* NOVO: Scroll-snap horizontal */
-    padding-bottom: 10px;
-    /* Espaço para barra de scroll */
-  }
+.thumbnails-list {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  max-height: 150px;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
 
-  .gallery .thumb {
-    width: 80px;
-    min-width: 80px;
-    height: 80px;
-    /* NOVO: Espaçamento entre os thumbs */
-    margin-right: 8px;
-    /* NOVO: Alinha o thumb ao centro ao parar o scroll */
-    scroll-snap-align: center;
-  }
+.gallery .thumb {
+  flex: 0 0 auto;
+  width: 80px !important;
+  height: 80px !important;
+  object-fit: cover;
+  margin-right: 8px;
+  scroll-snap-align: center;
+}
 
-  #modal-image-gallery img {
-    max-height: 45vh;
-    width: 100%;
-    object-fit: contain;
-  }
+#modal-image-gallery img {
+  max-height: 45vh;
+  max-width: 100%;
+  object-fit: contain;
+}
 }
 
 /* Telas de celular (600px) */
