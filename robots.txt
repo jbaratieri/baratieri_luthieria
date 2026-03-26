@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /carrinho
+Disallow: /checkout
+Disallow: /login
+Disallow: /admin
+Disallow: /usuario
+Sitemap: https://loja.luthieriabaratieri.com.br/sitemap.xml
