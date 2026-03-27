@@ -58,9 +58,18 @@ body {
   margin-bottom: 4px;
 }
 
+.hero-seo h1 {
+  color: var(--accent);
+}
+.hero-seo p {
+  color: var(--muted);
+}
+
+
 .app-header .brand p {
   margin: 0;
-  font-size: 1em;
+  margin-top: -50px;
+  font-size: 1.2em;
   color: var(--muted);
 }
 
@@ -424,13 +433,88 @@ nav a:hover {
   text-align: center;
   text-decoration: none;
   font-weight: 700;
-  margin-top: 20px;
+  margin-top: 18px;
   display: block;
   transition: background 0.2s;
 }
 
 .btn-whatsapp:hover {
   background: #128c7e;
+}
+
+.btn-servicos {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 12px 26px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: 0.2s;
+}
+
+.btn-servicos:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.hero-botoes {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* BOTÃO INSTRUMENTOS */
+.btn-instrumentos {
+  padding: 12px 22px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: 0.2s;
+  margin-top: 18px;
+}
+
+.btn-instrumentos:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* BOTÃO SERVIÇOS */
+.btn-servicos {
+  padding: 12px 22px;
+  background: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-servicos:hover {
+  background: #000;
+  transform: translateY(-2px);
+}
+
+/* BOTÃO WHATSAPP */
+.btn-whatsapp {
+  padding: 12px 22px;
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
 }
 
 /* ===================================
@@ -599,7 +683,7 @@ nav a:hover {
   transition: transform .6s ease;
 }
 .catalog-intro {
-  max-width: 720px;
+  max-width: 900px;
   margin: 0 0 32px;
   font-size: 15px;
   line-height: 1.6;
@@ -693,6 +777,8 @@ nav a:hover {
 .pacote.premium {
   border-color: rgba(255, 255, 255, 0.12);
 }
+
+
 
 
 /* ===================================

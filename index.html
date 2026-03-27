@@ -3,17 +3,70 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Baratieri Luthieria — Instrumentos</title>
-  <meta name="description"
-    content="Vitrine de instrumentos artesanais de alta qualidade produzidos pela Baratieri Luthieria." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <meta property="og:title" content="Baratieri Luthieria — Instrumentos Artesanais" />
-  <meta property="og:description" content="Instrumentos únicos, feitos à mão, com tradição e excelência." />
-  <meta property="og:image" content="logos/logotipo.png" />
+  <!-- SEO principal -->
+  <title>Luthieria Baratieri – Construção, Regulagem e Conserto de Violão, Viola e Instrumentos de Cordas</title>
+
+  <meta name="description"
+    content="Baratieri Luthieria – Construção artesanal de violões, violas, cavaquinhos e ukuleles. Regulagem, conserto, troca de trastes, setup e restauração de instrumentos de cordas." />
+
+  <meta name="keywords"
+    content="luthieria, luthier, regulagem de violão, conserto de violão, setup de guitarra, viola caipira luthier, construção de violão artesanal, luthier Terra Roxa, manutenção de instrumentos de cordas" />
+
+  <meta name="author" content="Baratieri Luthieria" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- SEO Google -->
+  <meta name="googlebot" content="index, follow" />
+
+  <!-- Open Graph (WhatsApp, Facebook, Instagram) -->
+  <meta property="og:title" content="Baratieri Luthieria – Instrumentos Artesanais e Serviços de Luthier" />
+  <meta property="og:description"
+    content="Construção artesanal e serviços de regulagem, manutenção e restauração de instrumentos de cordas." />
+  <meta property="og:image" content="https://loja.luthieriabaratieri.com.br/logos/logotipo.png" />
   <meta property="og:url" content="https://loja.luthieriabaratieri.com.br" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Baratieri Luthieria – Instrumentos Artesanais" />
+  <meta name="twitter:description" content="Construção artesanal e serviços de luthier para instrumentos de cordas." />
+  <meta name="twitter:image" content="https://loja.luthieriabaratieri.com.br/logos/logotipo.png" />
+
+  <!-- Canonical (evita conteúdo duplicado) -->
+  <link rel="canonical" href="https://loja.luthieriabaratieri.com.br" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/logos/favicon.png" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="./vitrine.css">
 
+  <!-- Schema.org – Luthieria Local Business -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicInstrumentStore",
+    "name": "Baratieri Luthieria",
+    "image": "https://loja.luthieriabaratieri.com.br/logos/logotipo.png",
+    "url": "https://loja.luthieriabaratieri.com.br",
+    "telephone": "+55 45 92002-8659",
+    "email": "baratieriluthieria@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Terra Roxa",
+      "addressRegion": "PR",
+      "addressCountry": "BR"
+    },
+    "sameAs": [
+      "https://instagram.com/baratieri_luthieria",
+      "https://wa.me/5545920028659"
+    ],
+    "description": "Construção artesanal, regulagem, manutenção e restauração de instrumentos de cordas como violão, viola caipira, cavaquinho e ukulele."
+  }
+  </script>
 
 </head>
 
@@ -33,6 +86,39 @@
 
   <main class="wrap">
 
+    <section class="hero-seo">
+      <h1>Luthieria Baratieri – Instrumentos Artesanais e Serviços de Luthier</h1>
+
+      <p>
+        A <strong>Baratieri Luthieria</strong> é especializada na construção artesanal
+        de instrumentos de cordas como violão, viola caipira, cavaquinho e ukulele.
+        Cada instrumento é construído manualmente, um a um, respeitando a tradição
+        da luteria clássica e a busca pela melhor sonoridade.
+      </p>
+
+      <p>
+        Além da construção de instrumentos artesanais, também realizamos serviços de
+        regulagem, manutenção, conserto e restauração de instrumentos de cordas,
+        incluindo troca de rastilho, nivelamento de trastes, regulagem de ação,
+        colagem de cavalete e setup completo.
+      </p>
+
+      <p>
+        Se você procura um <strong>luthier para regulagem de violão</strong>,
+        <strong>conserto de guitarra</strong> ou um
+        <strong>instrumento artesanal exclusivo</strong>, a Baratieri Luthieria
+        oferece atendimento especializado e trabalho totalmente artesanal.
+      </p>
+      <div class="hero-botoes">
+        <a href="#vitrine" class="btn-instrumentos">Ver Instrumentos</a>
+        <a href="#" data-modal="modalServicos" class="btn-servicos">Serviços</a>
+        <a href="https://wa.me/5545920028659" class="btn-whatsapp" target="_blank">
+          WhatsApp
+        </a>
+      </div>
+
+    </section>
+
     <section id="vitrine" class="vitrine-container">
       <h2>Instrumentos em Destaque</h2>
       <p class="catalog-intro">
@@ -47,6 +133,52 @@
           Não foi possível carregar os dados. Tente novamente mais tarde.
         </div>
       </div>
+    </section>
+    <section class="vitrine-container">
+      <h2>Serviços de Luthieria</h2>
+      <ul>
+        <li>Regulagem de violão e guitarra</li>
+        <li>Troca de rastilho</li>
+        <li>Nivelamento de trastes</li>
+        <li>Colagem de cavalete</li>
+        <li>Setup completo</li>
+        <li>Restauração de instrumentos</li>
+      </ul>
+      <a href="#" class="btn-servicos" data-modal="modalServicos">
+        Ver todos os serviços
+      </a>
+    </section>
+    <section class="vitrine-container">
+      <h2>Luthieria de Instrumentos de Cordas</h2>
+
+      <p class="catalog-intro">
+        A Baratieri Luthieria é especializada na construção artesanal de instrumentos
+        de cordas como violão, viola caipira, cavaquinho e ukulele. Cada instrumento
+        é construído manualmente, seguindo técnicas tradicionais de luteria.
+      </p>
+
+      <p class="catalog-intro">
+        Também prestamos serviços de regulagem, manutenção, conserto e restauração
+        de instrumentos de cordas, incluindo troca de rastilho, regulagem de ação,
+        nivelamento de trastes, colagem de cavalete e setup completo.
+      </p>
+
+      <p class="catalog-intro">
+        Se você procura um luthier para regulagem de violão, conserto de guitarra
+        ou construção de instrumento artesanal, entre em contato com a Baratieri Luthieria.
+      </p>
+    </section>
+    <section class="vitrine-container">
+      <h2>Luthieria e Regulagem de Instrumentos em Terra Roxa – P</h2>
+      <p class="catalog-intro">
+        A Baratieri Luthieria atende músicos de Terra Roxa, Guaíra,
+        Palotina, Umuarama e região, oferecendo serviços de regulagem,
+        manutenção e construção de instrumentos de cordas.
+      </p>
+      <p class="catalog-intro">
+        Se você precisa de regulagem de violão, conserto de guitarra,
+        troca de rastilho ou setup completo, entre em contato.
+      </p>
     </section>
 
   </main>
