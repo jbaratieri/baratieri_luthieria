@@ -1005,6 +1005,10 @@ nav a:hover {
 
 @media (max-width: 600px) {
   .logo-header {
-    max-height: 140px;
+    max-height: 150px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.7em;
   }
 }
