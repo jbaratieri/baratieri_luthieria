@@ -43,7 +43,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(187, 176, 176, 0.741);
 }
 
 .app-header .brand {
@@ -66,12 +66,12 @@ body {
 }
 
 
-.app-header .brand p {
-  margin: 0;
-  margin-top: -50px;
-  font-size: 1.2em;
+  .app-header .brand p {
+  margin: -35px 0 0 0;
   color: var(--muted);
+  font-size: 0.85rem;
 }
+
 
 nav a {
   color: var(--muted);
@@ -948,15 +948,46 @@ nav a:hover {
 @media (max-width: 600px) {
   .app-header {
     flex-direction: column;
+    align-items: center;
     text-align: center;
+    padding: 15px 10px;
+  }
+
+  .app-header .brand {
+    align-items: center;
+  }
+
+  .app-header .brand img {
+    max-width: 140px;
+    height: auto;
+  }
+
+  .app-header .brand p {
+    margin-top: -5px;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
   }
 
   nav {
-    margin-top: 10px;
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
   }
 
   nav a {
-    margin: 0 8px;
+    background: #f5f2ec;
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    border: 1px solid #e5dfd6;
+  }
+
+  nav a:hover {
+    background: var(--accent);
+    color: white;
+    border-bottom: none;
   }
 
   .wrap {
@@ -965,5 +996,15 @@ nav a:hover {
 
   .grid-vitrine {
     grid-template-columns: 1fr;
+  }
+}
+
+.logo-header {
+  max-height: 220px;
+}
+
+@media (max-width: 600px) {
+  .logo-header {
+    max-height: 140px;
   }
 }
