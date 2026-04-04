@@ -641,6 +641,12 @@ nav a:hover {
     border-top: none;
     padding-top: 0;
   }
+  .container-btn {
+  text-align: center;
+}
+.hero-botoes {
+  justify-content: center;
+}
 }
 
 
@@ -1010,5 +1016,8 @@ nav a:hover {
   h1 {
     text-align: center;
     font-size: 1.7em;
+  }
+  h2 {
+    text-align: center;
   }
 }
