@@ -157,14 +157,14 @@ function generateInstrumentHtml(it, relImages) {
   <script type="application/ld+json">${jsonLd}</script>
 </head>
 <body class="instrument-page">
-  <header class="app-header">
-    <div class="brand">
-      <a href="../../" class="ficha-brand-link"><img src="../../logos/logotipo.png" alt="Luthieria Baratieri" class="logo-header" width="180" height="48" /></a>
-      <p>Artesanato e excelência em cada instrumento.</p>
+  <header class="app-header ficha-header">
+    <div class="brand ficha-brand">
+      <a href="../../" class="ficha-brand-link"><img src="../../logos/logotipo.png" alt="Luthieria Baratieri" class="logo-header ficha-logo" /></a>
+      <p class="ficha-tagline">Artesanato e excelência em cada instrumento.</p>
     </div>
-    <nav>
-      <a href="../../#vitrine">Loja</a>
-      <a href="../../#vitrine">Todos os instrumentos</a>
+    <nav class="ficha-nav" aria-label="Navegação da loja">
+      <a href="../../">Início</a>
+      <a href="../../#vitrine">Vitrine</a>
       <a href="https://wa.me/5545920028659" target="_blank" rel="noopener">WhatsApp</a>
     </nav>
   </header>

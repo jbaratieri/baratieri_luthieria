@@ -28,6 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace(/\s/g, '');
     }
 
+    function plainTextFromHtml(html) {
+        if (!html) return '';
+        return String(html).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function escapeHtml(s) {
+        if (s == null) return '';
+        return String(s)
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;');
+    }
+
     function createWhatsappLink(instrumento) {
         const msg = encodeURIComponent(
             `Olá, gostaria de solicitar um orçamento para o instrumento "${instrumento.nome} ${instrumento.modelo}" (Série: ${instrumento.serie || instrumento.id}).`
@@ -212,10 +226,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const whatsappLink = createWhatsappLink(instrumento);
         const fichaPage = `./instrumento/${encodeURIComponent(instrumento.id)}/`;
+        const obsPlain = plainTextFromHtml(instrumento.obs || '');
+        const obsPreviewBlock = obsPlain
+            ? `<div class="modal-obs-block">
+                <span class="modal-obs-label">Detalhes</span>
+                <p class="modal-obs-preview">${escapeHtml(obsPlain)}</p>
+                <a class="btn-ficha-modal" href="${fichaPage}">Acessar ficha completa</a>
+              </div>`
+            : `<div class="modal-obs-block modal-obs-block--empty">
+                <a class="btn-ficha-modal" href="${fichaPage}">Acessar ficha completa</a>
+              </div>`;
 
         detailsContainer.innerHTML = `
             <h3>${instrumento.nome} ${instrumento.modelo || ''}</h3>
-            <p><a class="modal-ficha-link" href="${fichaPage}">Abrir página do instrumento</a></p>
             <p><strong>Série:</strong> ${instrumento.serie || instrumento.id}</p>
             <p><strong>Linha:</strong> ${instrumento.linha || '—'}</p>
             <p><strong>Status:</strong>
@@ -223,19 +246,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${instrumento.status || 'Disponível'}
                 </span>
             </p>
-            ${instrumento.obs ? `<p><strong>Detalhes:</strong> ${instrumento.obs}</p>` : ''}
-            <button class="btn-whatsapp" id="btn-whatsapp">
+            ${obsPreviewBlock}
+            <button class="btn-whatsapp" id="btn-whatsapp" type="button">
   Solicitar Orçamento
 </button>
 
         `;
-const btnZap = document.getElementById('btn-whatsapp');
-
-btnZap.addEventListener('click', (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    window.open(whatsappLink, '_blank', 'noopener');
-});
+        const btnZap = document.getElementById('btn-whatsapp');
+        if (btnZap) {
+            btnZap.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                window.open(whatsappLink, '_blank', 'noopener');
+            });
+        }
 
         imageModal.style.display = 'flex';
     }
