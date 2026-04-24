@@ -53,6 +53,15 @@ function schemaAvailability(status) {
   return 'https://schema.org/InStock';
 }
 
+/** Se existir preço real no JSON (preco / precoPublico / price), usamos em Offer; senão omitimos offers (evita rich result inválido sem checkout). */
+function parseInstrumentPrice(it) {
+  const raw = it.preco ?? it.precoPublico ?? it.price;
+  if (raw === '' || raw == null) return null;
+  const n = typeof raw === 'number' ? raw : parseFloat(String(raw).replace(/\s/g, '').replace(',', '.'));
+  if (!Number.isFinite(n) || n <= 0) return null;
+  return n;
+}
+
 function listImagesForInstrument(instrumentId) {
   const dir = path.join(IMAGES_ROOT, instrumentId);
   if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return [];
@@ -77,27 +86,44 @@ function whatsappUrl(instrumento) {
   return `https://wa.me/${num}?text=${msg}`;
 }
 
-function buildJsonLd(it, pageUrl, imageUrlsAbsolute) {
+function buildJsonLdGraph(it, pageUrl, imageUrlsAbsolute) {
   const name = `${it.nome} ${it.modelo || ''}`.trim();
   const desc = truncate(plainTextFromHtml(it.obs || it.madeira || name), 500);
-  const obj = {
-    '@context': 'https://schema.org',
+  const product = {
     '@type': 'Product',
     name,
     description: desc,
     sku: it.serie || it.id,
     url: pageUrl,
     brand: { '@type': 'Brand', name: 'Baratieri Luthieria' },
-    offers: {
-      '@type': 'Offer',
-      availability: schemaAvailability(it.status),
-      priceCurrency: 'BRL',
-      url: pageUrl,
-      seller: { '@type': 'Organization', name: 'Baratieri Luthieria' },
-    },
   };
-  if (imageUrlsAbsolute.length) obj.image = imageUrlsAbsolute;
-  return JSON.stringify(obj);
+  if (imageUrlsAbsolute.length) product.image = imageUrlsAbsolute;
+
+  const priceNum = parseInstrumentPrice(it);
+  if (priceNum != null) {
+    product.offers = {
+      '@type': 'Offer',
+      url: pageUrl,
+      priceCurrency: 'BRL',
+      price: priceNum.toFixed(2),
+      availability: schemaAvailability(it.status),
+      seller: { '@type': 'Organization', name: 'Baratieri Luthieria' },
+    };
+  }
+
+  const breadcrumbs = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: `${BASE_URL}/` },
+      { '@type': 'ListItem', position: 2, name: 'Instrumentos', item: `${BASE_URL}/#vitrine` },
+      { '@type': 'ListItem', position: 3, name, item: pageUrl },
+    ],
+  };
+
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [product, breadcrumbs],
+  });
 }
 
 function generateInstrumentHtml(it, relImages) {
@@ -132,7 +158,13 @@ function generateInstrumentHtml(it, relImages) {
     ? `<div class="ficha-body instrument-prose">${it.obs}</div>`
     : '';
 
-  const jsonLd = buildJsonLd(it, pageUrl, absImages).replace(/</g, '\\u003c');
+  const priceNum = parseInstrumentPrice(it);
+  const priceDl =
+    priceNum != null
+      ? `<dt>Preço</dt><dd>R$ ${priceNum.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</dd>`
+      : '';
+
+  const jsonLd = buildJsonLdGraph(it, pageUrl, absImages).replace(/</g, '\\u003c');
 
   return `<!doctype html>
 <html lang="pt-BR">
@@ -172,10 +204,10 @@ function generateInstrumentHtml(it, relImages) {
   <main class="wrap ficha-main">
     <nav class="ficha-breadcrumb" aria-label="Navegação">
       <a href="../../">Início</a>
-      <span aria-hidden="true"> / </span>
+      <span class="ficha-bc-sep" aria-hidden="true">/</span>
       <a href="../../#vitrine">Instrumentos</a>
-      <span aria-hidden="true"> / </span>
-      <span>${h1}</span>
+      <span class="ficha-bc-sep" aria-hidden="true">/</span>
+      <span class="ficha-breadcrumb-current">${h1}</span>
     </nav>
 
     <article>
@@ -195,6 +227,7 @@ function generateInstrumentHtml(it, relImages) {
         <div class="ficha-side">
           <dl class="ficha-dl">
             ${it.madeira ? `<dt>Madeiras / materiais</dt><dd>${escapeHtml(it.madeira)}</dd>` : ''}
+            ${priceDl}
             <dt>Identificação</dt><dd>${escapeHtml(it.serie || it.id)}</dd>
           </dl>
           <p class="ficha-cta-wrap">

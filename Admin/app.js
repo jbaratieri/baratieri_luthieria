@@ -27,7 +27,7 @@
       const tbody = $id('tbody');
       const emptyBox = $id('empty');
       const form = $id('form');
-      const inputs = ['nome', 'ano', 'modelo', 'status', 'madeira', 'linha', 'serie', 'obs', 'comprador', 'telefone'];
+      const inputs = ['nome', 'ano', 'modelo', 'status', 'madeira', 'linha', 'serie', 'preco', 'obs', 'comprador', 'telefone'];
       const countEl = $id('count');
       const searchEl = $id('search');
       const filterStatusEl = $id('filterStatus');
@@ -183,7 +183,7 @@
 
       function sanitizeInstrument(it) {
         const out = Object.assign({}, it);
-        ['id', 'serie', 'nome', 'modelo', 'madeira', 'linha', 'ano', 'status', 'comprador', 'telefone', 'obs', 'createdAt'].forEach(k => {
+        ['id', 'serie', 'nome', 'modelo', 'madeira', 'linha', 'ano', 'status', 'preco', 'comprador', 'telefone', 'obs', 'createdAt'].forEach(k => {
           if (out[k] === null || out[k] === undefined) out[k] = '';
           else if (typeof out[k] !== 'string') out[k] = String(out[k]);
         });
