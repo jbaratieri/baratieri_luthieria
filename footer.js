@@ -17,6 +17,8 @@
     modal.setAttribute('aria-hidden', 'true');
     modal.style.display = 'none';
     document.body.style.overflow = ''; // Restaura a rolagem do corpo
+    document.documentElement.classList.remove('gallery-modal-open');
+    document.body.classList.remove('gallery-modal-open');
 
     // Remove modal temporário, como o manual
     if (id === 'manualModal') {

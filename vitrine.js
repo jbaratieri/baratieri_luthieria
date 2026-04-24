@@ -69,6 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
         tryNext();
     }
 
+    // --- Scroll do fundo (galeria + fullscreen) ---
+
+    function lockGalleryScroll() {
+        document.documentElement.classList.add('gallery-modal-open');
+        document.body.classList.add('gallery-modal-open');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function unlockGalleryScroll() {
+        document.documentElement.classList.remove('gallery-modal-open');
+        document.body.classList.remove('gallery-modal-open');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+    }
+
+    function syncScrollLockAfterFullscreen() {
+        if (imageModal && imageModal.style.display === 'flex') {
+            lockGalleryScroll();
+        } else {
+            unlockGalleryScroll();
+        }
+    }
+
     // --- FULLSCREEN ---
 
     function openFullscreenGallery(images, startIndex = 0) {
@@ -103,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         track.style.cursor = 'grab';
 
         document.body.appendChild(fs);
-        document.body.style.overflow = 'hidden';
+        lockGalleryScroll();
 
         const update = () => {
             track.scrollTo({
@@ -154,9 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function close() {
-            document.body.style.overflow = '';
             document.removeEventListener('keydown', esc);
             fs.remove();
+            syncScrollLockAfterFullscreen();
         }
     }
 
@@ -164,6 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeGalleryModal() {
         imageModal.style.display = 'none';
+        imageModal.setAttribute('aria-hidden', 'true');
+        unlockGalleryScroll();
         galleryContainer.innerHTML = '';
         detailsContainer.innerHTML = '';
     }
@@ -261,6 +287,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        const fichaBtn = detailsContainer.querySelector('.btn-ficha-modal');
+        if (fichaBtn) {
+            fichaBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const href = fichaBtn.getAttribute('href');
+                closeGalleryModal();
+                if (href) window.location.assign(href);
+            });
+        }
+
+        imageModal.setAttribute('aria-hidden', 'false');
+        lockGalleryScroll();
         imageModal.style.display = 'flex';
     }
 
