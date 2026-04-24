@@ -211,9 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const whatsappLink = createWhatsappLink(instrumento);
+        const fichaPage = `./instrumento/${encodeURIComponent(instrumento.id)}/`;
 
         detailsContainer.innerHTML = `
             <h3>${instrumento.nome} ${instrumento.modelo || ''}</h3>
+            <p><a class="modal-ficha-link" href="${fichaPage}">Abrir página do instrumento</a></p>
             <p><strong>Série:</strong> ${instrumento.serie || instrumento.id}</p>
             <p><strong>Linha:</strong> ${instrumento.linha || '—'}</p>
             <p><strong>Status:</strong>
@@ -241,21 +243,22 @@ btnZap.addEventListener('click', (e) => {
     // --- RENDER ---
 
     function renderCard(instrumento) {
-    const card = document.createElement('div');
+    const card = document.createElement('article');
     card.className = 'instrument-card';
 
-    // Só adiciona "unique" se realmente for peça única
     if (instrumento.unique === true) {
         card.dataset.unique = 'true';
     }
 
-    // Adiciona status apenas se existir
     if (instrumento.status) {
         card.dataset.status = sanitizeStatus(instrumento.status);
     }
 
+    const fichaHref = `./instrumento/${encodeURIComponent(instrumento.id)}/`;
+
     const imageContainer = document.createElement('div');
     imageContainer.className = 'image-container';
+    imageContainer.title = 'Ver galeria de fotos';
 
     const img = document.createElement('img');
     img.alt = `${instrumento.nome} ${instrumento.modelo || ''}`;
@@ -265,23 +268,43 @@ btnZap.addEventListener('click', (e) => {
     });
 
     imageContainer.appendChild(img);
+    imageContainer.addEventListener('click', (e) => {
+        e.preventDefault();
+        openGalleryModal(instrumento);
+    });
 
     const details = document.createElement('div');
     details.className = 'details';
 
     details.innerHTML = `
-        <h3>${instrumento.nome}</h3>
+        <h3><a href="${fichaHref}" class="card-title-link">${instrumento.nome}</a></h3>
         ${instrumento.modelo ? `<p class="modelo">${instrumento.modelo}</p>` : ''}
         <p class="linha">${instrumento.linha || ''}</p>
         <span class="status-tag ${sanitizeStatus(instrumento.status)}">
             ${instrumento.status || 'Disponível'}
         </span>
+        <div class="card-actions">
+            <a class="btn-ficha" href="${fichaHref}">Ver ficha completa</a>
+            <button type="button" class="btn-fotos">Fotos rápidas</button>
+        </div>
     `;
+
+    const btnFotos = details.querySelector('.btn-fotos');
+    if (btnFotos) {
+        btnFotos.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openGalleryModal(instrumento);
+        });
+    }
+
+    const titleLink = details.querySelector('.card-title-link');
+    if (titleLink) {
+        titleLink.addEventListener('click', (e) => e.stopPropagation());
+    }
 
     card.appendChild(imageContainer);
     card.appendChild(details);
-
-    card.onclick = () => openGalleryModal(instrumento);
 
     instrumentsList.appendChild(card);
 }

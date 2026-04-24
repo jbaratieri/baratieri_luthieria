@@ -1,0 +1,8 @@
+{
+  "name": "loja-luthieria-baratieri",
+  "private": true,
+  "description": "Vitrine estática — gera fichas de instrumentos e sitemap",
+  "scripts": {
+    "build": "node scripts/build-instrument-pages.mjs"
+  }
+}

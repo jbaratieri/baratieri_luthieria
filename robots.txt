@@ -4,5 +4,6 @@ Disallow: /carrinho
 Disallow: /checkout
 Disallow: /login
 Disallow: /admin
+Disallow: /Admin
 Disallow: /usuario
 Sitemap: https://loja.luthieriabaratieri.com.br/sitemap.xml

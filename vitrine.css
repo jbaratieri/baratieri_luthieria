@@ -115,8 +115,7 @@ nav a:hover {
   overflow: hidden;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-  /* Indica que é clicável */
+  cursor: default;
 }
 
 .instrument-card:hover {
@@ -129,6 +128,7 @@ nav a:hover {
   overflow: hidden;
   position: relative;
   background: #182230;
+  cursor: zoom-in;
 }
 
 .instrument-card .image-container img {
@@ -147,6 +147,60 @@ nav a:hover {
   margin: 0 0 4px 0;
   font-size: 20px;
   color: #fff;
+}
+
+.instrument-card .card-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.instrument-card .card-title-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.instrument-card .card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  align-items: center;
+}
+
+.instrument-card .btn-ficha {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  background: var(--accent);
+  color: #0f1724;
+  border: none;
+  transition: filter 0.2s, transform 0.15s;
+}
+
+.instrument-card .btn-ficha:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.instrument-card .btn-fotos {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: 1px solid rgba(227, 178, 60, 0.45);
+  background: transparent;
+  color: var(--accent);
+  font-family: inherit;
+}
+
+.instrument-card .btn-fotos:hover {
+  background: rgba(227, 178, 60, 0.12);
 }
 
 .instrument-card .details p {
@@ -191,8 +245,9 @@ nav a:hover {
   /* Cor do texto escura para contraste */
 }
 
-/* Cores de Fundo */
-.status-tag.disponível {
+/* Cores de Fundo (classe do JS usa ASCII: disponivel) */
+.status-tag.disponível,
+.status-tag.disponivel {
   background: var(--success);
 }
 
@@ -422,6 +477,16 @@ nav a:hover {
 .modal-details p {
   color: var(--muted);
   font-size: 15px;
+}
+
+.modal-details .modal-ficha-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.modal-details .modal-ficha-link:hover {
+  text-decoration: underline;
 }
 
 /* Botão de Contato/Ação */
@@ -1020,4 +1085,193 @@ nav a:hover {
   h2 {
     text-align: center;
   }
+}
+
+/* ===================================
+ * Página de ficha do instrumento (HTML estático)
+ * =================================== */
+body.instrument-page .ficha-brand-link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+body.instrument-page .ficha-breadcrumb {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+body.instrument-page .ficha-breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+body.instrument-page .ficha-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+body.instrument-page .ficha-title {
+  color: var(--accent);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin: 0 0 12px 0;
+}
+
+body.instrument-page .ficha-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: center;
+  margin: 0 0 24px 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+body.instrument-page .ficha-meta .status-tag {
+  position: static;
+}
+
+body.instrument-page .ficha-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+
+@media (max-width: 900px) {
+  body.instrument-page .ficha-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+body.instrument-page .ficha-hero {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #182230;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.instrument-page .ficha-hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+}
+
+body.instrument-page .ficha-no-photo {
+  padding: 48px 20px;
+  text-align: center;
+  color: var(--muted);
+  border-radius: 12px;
+  background: #182230;
+  border: 1px dashed rgba(227, 178, 60, 0.25);
+}
+
+body.instrument-page .ficha-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+body.instrument-page .ficha-thumb {
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #182230;
+  line-height: 0;
+}
+
+body.instrument-page .ficha-thumb.is-active {
+  border-color: var(--accent);
+}
+
+body.instrument-page .ficha-thumb img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  display: block;
+}
+
+body.instrument-page .ficha-dl {
+  margin: 0;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.instrument-page .ficha-dl dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+body.instrument-page .ficha-dl dt:first-child {
+  margin-top: 0;
+}
+
+body.instrument-page .ficha-dl dd {
+  margin: 4px 0 0 0;
+  color: #e6eef6;
+  line-height: 1.5;
+}
+
+body.instrument-page .ficha-cta-wrap {
+  margin-top: 20px;
+}
+
+body.instrument-page .ficha-cta-wrap .btn-whatsapp {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
+body.instrument-page .ficha-body.instrument-prose {
+  padding: 20px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  line-height: 1.65;
+  color: #dce6ee;
+}
+
+body.instrument-page .instrument-prose b,
+body.instrument-page .instrument-prose strong {
+  color: var(--accent);
+}
+
+body.instrument-page .instrument-prose p {
+  margin: 0 0 12px 0;
+}
+
+body.instrument-page .ficha-back {
+  margin-top: 32px;
+}
+
+body.instrument-page .ficha-back a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+body.instrument-page .ficha-back a:hover {
+  text-decoration: underline;
+}
+
+body.instrument-page .ficha-footer-min {
+  text-align: center;
+  padding: 24px;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.instrument-page .ficha-footer-min .footer-copy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }

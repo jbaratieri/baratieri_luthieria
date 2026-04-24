@@ -34,6 +34,8 @@
       const filterLinhaEl = $id('filterLinha');
       const btnNew = $id('btnNew');
       const btnExport = $id('btnExport');
+      const btnExportPublic = $id('btnExportPublic');
+      const btnExportPublicDisp = $id('btnExportPublicDisp');
       const btnImport = $id('btnImport');
       const fileImport = $id('fileImport');
       const fotosInput = $id('fotos');
@@ -394,13 +396,41 @@
 
       // --- Export/Import ---
 
+      function downloadJsonFile(filename, dataArray) {
+        const raw = JSON.stringify(dataArray, null, 2);
+        const blob = new Blob([raw], { type: 'application/json;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      function toPublicInstrument(it) {
+        const o = sanitizeInstrument(it);
+        delete o.comprador;
+        delete o.telefone;
+        return o;
+      }
+
       if (btnExport) btnExport.addEventListener('click', () => {
         if (instruments.length === 0) { alert('Nenhum instrumento para exportar.'); return; }
         const dataToExport = instruments.map(sanitizeInstrument);
-        const raw = JSON.stringify(dataToExport, null, 2);
-        const blob = new Blob([raw], { type: 'application/json;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'baratieri_instruments.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        downloadJsonFile('baratieri_instruments.json', dataToExport);
+      });
+
+      if (btnExportPublic) btnExportPublic.addEventListener('click', () => {
+        if (instruments.length === 0) { alert('Nenhum instrumento para exportar.'); return; }
+        downloadJsonFile('baratieri_instruments.json', instruments.map(toPublicInstrument));
+      });
+
+      if (btnExportPublicDisp) btnExportPublicDisp.addEventListener('click', () => {
+        const disp = instruments.filter(i => (i.status || '').toLowerCase() === 'disponível' || (i.status || '').toLowerCase() === 'disponivel');
+        if (disp.length === 0) { alert('Nenhum instrumento com status "Disponível".'); return; }
+        downloadJsonFile('baratieri_instruments.json', disp.map(toPublicInstrument));
       });
 
       if (btnImport && fileImport) btnImport.addEventListener('click', () => fileImport.click());
