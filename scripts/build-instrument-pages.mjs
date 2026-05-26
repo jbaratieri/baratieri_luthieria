@@ -86,9 +86,79 @@ function whatsappUrl(instrumento) {
   return `https://wa.me/${num}?text=${msg}`;
 }
 
+const WOOD_SPECS = [
+  ['Tampo', 'tampo'],
+  ['Fundo e laterais', 'fundoLaterais'],
+  ['Braço', 'braco'],
+  ['Escala', 'escala'],
+  ['Cavalete', 'cavalete'],
+];
+
+const COMPONENT_SPECS = [
+  ['Tarraxas', 'tarraxas'],
+  ['Filetes / marchetaria', 'filetes'],
+  ['Acabamento', 'acabamento'],
+  ['Trastes, nut e rastilho', 'hardware'],
+  ['Captação', 'captacao'],
+];
+
+function specValue(it, key) {
+  const v = it[key];
+  if (v == null) return '';
+  return String(v).trim();
+}
+
+function collectSpecPairs(it) {
+  const woods = [];
+  const components = [];
+  for (const [label, key] of WOOD_SPECS) {
+    const v = specValue(it, key);
+    if (v) woods.push({ label, value: v });
+  }
+  for (const [label, key] of COMPONENT_SPECS) {
+    const v = specValue(it, key);
+    if (v) components.push({ label, value: v });
+  }
+  return { woods, components };
+}
+
+function specsPlainText(it) {
+  const { woods, components } = collectSpecPairs(it);
+  const parts = [...woods, ...components].map((p) => `${p.label}: ${p.value}`);
+  if (!parts.length && it.madeira) return String(it.madeira).trim();
+  return parts.join('. ');
+}
+
+function buildSpecsHtml(it) {
+  const { woods, components } = collectSpecPairs(it);
+  let html = '';
+
+  if (woods.length) {
+    html += '<div class="ficha-spec-group"><h3 class="ficha-spec-heading">Madeiras</h3><dl class="ficha-dl ficha-dl-spec">';
+    for (const { label, value } of woods) {
+      html += `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`;
+    }
+    html += '</dl></div>';
+  }
+
+  if (components.length) {
+    html += '<div class="ficha-spec-group"><h3 class="ficha-spec-heading">Componentes</h3><dl class="ficha-dl ficha-dl-spec">';
+    for (const { label, value } of components) {
+      html += `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`;
+    }
+    html += '</dl></div>';
+  }
+
+  if (!html && it.madeira) {
+    html = `<dl class="ficha-dl ficha-dl-spec"><dt>Madeiras / materiais</dt><dd>${escapeHtml(it.madeira)}</dd></dl>`;
+  }
+
+  return html;
+}
+
 function buildJsonLdGraph(it, pageUrl, imageUrlsAbsolute) {
   const name = `${it.nome} ${it.modelo || ''}`.trim();
-  const desc = truncate(plainTextFromHtml(it.obs || it.madeira || name), 500);
+  const desc = truncate(plainTextFromHtml(it.obs || specsPlainText(it) || name), 500);
   const product = {
     '@type': 'Product',
     name,
@@ -132,7 +202,7 @@ function generateInstrumentHtml(it, relImages) {
   const h1 = escapeHtml(`${it.nome} ${it.modelo || ''}`.trim());
   const pagePath = `/instrumento/${id}/`;
   const pageUrl = `${BASE_URL}${pagePath}`;
-  const descSrc = plainTextFromHtml(it.obs || it.madeira || '');
+  const descSrc = plainTextFromHtml(it.obs || specsPlainText(it) || '');
   const metaDesc = escapeHtml(truncate(descSrc || `${it.nome} — instrumento artesanal Baratieri Luthieria.`, 155));
   const statusClass = sanitizeStatusClass(it.status);
   const statusLabel = escapeHtml(it.status || 'Disponível');
@@ -197,6 +267,7 @@ function generateInstrumentHtml(it, relImages) {
     <nav class="ficha-nav" aria-label="Navegação da loja">
       <a href="../../">Início</a>
       <a href="../../#vitrine">Vitrine</a>
+      <a href="../../encomenda/">Sob encomenda</a>
       <a href="https://wa.me/5545920028659" target="_blank" rel="noopener">WhatsApp</a>
     </nav>
   </header>
@@ -225,8 +296,8 @@ function generateInstrumentHtml(it, relImages) {
           ${thumbs}
         </div>
         <div class="ficha-side">
+          ${buildSpecsHtml(it)}
           <dl class="ficha-dl">
-            ${it.madeira ? `<dt>Madeiras / materiais</dt><dd>${escapeHtml(it.madeira)}</dd>` : ''}
             ${priceDl}
             <dt>Identificação</dt><dd>${escapeHtml(it.serie || it.id)}</dd>
           </dl>
@@ -238,7 +309,7 @@ function generateInstrumentHtml(it, relImages) {
 
       ${obsBlock}
 
-      <p class="ficha-back"><a href="../../#vitrine">← Voltar à vitrine</a></p>
+      <p class="ficha-back"><a href="../../#vitrine">← Voltar à vitrine</a> · <a href="../../encomenda/">Sob encomenda</a></p>
     </article>
   </main>
 

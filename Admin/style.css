@@ -32,6 +32,8 @@ tr:hover td{background:linear-gradient(90deg, rgba(255,255,255,0.01), transparen
 form .row{display:flex;gap:8px;margin-bottom:8px}
 form label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
 textarea{width:100%;min-height:68px;background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:8px;color:inherit}
+.form-fieldset{border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 12px 6px;margin:0 0 12px 0}
+.form-fieldset legend{padding:0 6px;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase}
 
 footer{margin-top:18px;color:var(--muted);font-size:13px}
 

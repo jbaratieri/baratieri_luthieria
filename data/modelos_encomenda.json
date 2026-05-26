@@ -1,0 +1,112 @@
+{
+  "index": {
+    "title": "Instrumentos sob encomenda — Baratieri Luthieria",
+    "metaDescription": "Construção artesanal sob encomenda: violão OM, violão clássico, viola caipira e cavaquinho. Madeiras selecionadas, método espanhol e acompanhamento do luthier.",
+    "heroTitle": "Construção sob encomenda",
+    "heroLead": "Além dos instrumentos prontos na vitrine, a Baratieri Luthieria constrói sob medida para o músico que busca um timbre e um visual únicos. Cada projeto é conversado com você — madeiras, linha de construção, acabamento e prazo.",
+    "pillars": [
+      {
+        "titulo": "Formatos definidos",
+        "texto": "Violão OM, violão clássico, viola caipira e cavaquinho — cada família com geometria e sonoridade pensadas para o repertório brasileiro e para a música de cordas."
+      },
+      {
+        "titulo": "Madeiras e linhas",
+        "texto": "Tampo, fundo, laterais e escala escolhidos conforme o perfil sonoro desejado. Linhas como Raiz e Primeiras Notas orientam nível de acabamento e investimento."
+      },
+      {
+        "titulo": "Orçamento no WhatsApp",
+        "texto": "Sem preço fixo publicado: cada encomenda é orçada após entender suas preferências. O acompanhamento é direto com o luthier, do projeto à entrega."
+      }
+    ]
+  },
+  "modelos": [
+    {
+      "slug": "violao-om",
+      "nome": "Violão OM",
+      "tagline": "Projeção equilibrada e resposta à mão direita",
+      "metaDescription": "Violão OM sob encomenda na Baratieri Luthieria — formato Orchestra Model, madeiras maciças, construção artesanal em Terra Roxa – PR.",
+      "intro": "O violão OM (Orchestra Model) é o formato do compositor e do intérprete que valoriza articulação, conforto no braço e projeção equilibrada. Na Baratieri Luthieria, cada OM é construído artesanalmente, com atenção à relação entre tampo, escala e estrutura interna.",
+      "destaques": [
+        "Corpo confortável para longas sessões de estudo ou palco",
+        "Timbre claro nas cordas agudas e corpo nas médias e graves",
+        "Ideal para MPB, fingerstyle, música erudita e arranjos vocais"
+      ],
+      "madeirasTipicas": "Tampo em cedro ou abeto selecionado; fundo e laterais em imbuia, jacarandá, guajuvira ou outras madeiras nobres; escala em pau-ferro ou ébano. Combinações são definidas no orçamento.",
+      "linhas": "Linha Raiz (acabamento e madeiras de alto padrão) e Primeiras Notas (excelente custo-benefício para quem inicia ou amplia a coleção).",
+      "prazo": "O prazo depende da fila da oficina, da complexidade do acabamento e da disponibilidade das madeiras — informamos na conversa inicial.",
+      "especificacoes": [
+        { "titulo": "Formato", "texto": "OM — corpo médio-grande, escala longa, equilíbrio entre conforto e projeção." },
+        { "titulo": "Construção", "texto": "Método espanhol de luteria, trabalho manual etapa a etapa, um instrumento por vez." },
+        { "titulo": "Acabamentos", "texto": "Filetes, marchetaria e detalhes conforme a linha escolhida (Raiz ou Primeiras Notas)." },
+        { "titulo": "Hardware", "texto": "Tarraxas e componentes definidos no projeto; prioridade para qualidade e estabilidade de afinação." }
+      ],
+      "whatsappMsg": "Olá, gostaria de um orçamento para violão OM sob encomenda na Baratieri Luthieria."
+    },
+    {
+      "slug": "violao-classico",
+      "nome": "Violão clássico",
+      "tagline": "Tradição da música erudita e do violão brasileiro",
+      "metaDescription": "Violão clássico sob encomenda — construção artesanal Baratieri, nylon, madeira maciça e método espanhol.",
+      "intro": "O violão clássico com cordas de nylon pede equilíbrio tonal, ação confortável e estabilidade. Cada instrumento é pensado para a mão do músico e para o repertório — do estudo à apresentação.",
+      "destaques": [
+        "Resposta suave e definida em cada registro",
+        "Ação e oitavas ajustadas na entrega (setup completo)",
+        "Construção em madeira maciça, sem atalhos industriais"
+      ],
+      "madeirasTipicas": "Tampo em cedro ou abeto; fundo e laterais em imbuia, jacarandá ou guajuvira; braço em cedro ou mogno; escala em pau-ferro.",
+      "linhas": "Raiz para quem busca máximo refinamento visual e sonoro; Primeiras Notas para estudantes e músicos que querem um clássico artesanal acessível.",
+      "prazo": "Combinamos prazo realista na primeira conversa — encomendas entram na fila da oficina por ordem de confirmação.",
+      "especificacoes": [
+        { "titulo": "Cordas", "texto": "Nylon — repertório erudito, popular fingerstyle e violão brasileiro." },
+        { "titulo": "Escala", "texto": "Largura e perfil de braço discutidos para sua técnica (dedilhado, arpejos, etc.)." },
+        { "titulo": "Sonoridade", "texto": "Busca por sustain, separação de vozes e timbre quente conforme madeiras." },
+        { "titulo": "Entrega", "texto": "Instrumento regulado, pronto para estudo ou gravação após ajuste final na oficina." }
+      ],
+      "whatsappMsg": "Olá, gostaria de um orçamento para violão clássico sob encomenda na Baratieri Luthieria."
+    },
+    {
+      "slug": "viola-caipira",
+      "nome": "Viola caipira",
+      "tagline": "A alma da música caipira e do choro de raiz",
+      "metaDescription": "Viola caipira sob encomenda — Baratieri Luthieria, construção artesanal, madeira maciça e timbre para música de raiz.",
+      "intro": "A viola caipira exige projeção, definição nas cordas metálicas e conforto para o repertório regional. Construímos violas pensadas para o músico que leva o instrumento à roda, ao palco ou ao estúdio.",
+      "destaques": [
+        "Timbre encorpado e presença nas cordas metálicas",
+        "Geometria e escalas adaptadas ao seu estilo de tocar",
+        "Acabamento artesanal com identidade visual própria"
+      ],
+      "madeirasTipicas": "Tampo em cedro ou marupá; fundo e laterais em imbuia ou outras madeiras brasileiras; escala em pau-ferro; cravelhas de qualidade conforme projeto.",
+      "linhas": "Linha Raiz com marchetaria e madeiras nobres; opções para músicos que priorizam sonoridade e durabilidade.",
+      "prazo": "Violas sob encomenda seguem o mesmo critério de fila e madeiras — orçamento sem compromisso pelo WhatsApp.",
+      "especificacoes": [
+        { "titulo": "Configuração", "texto": "Número de cordas, afinação e escala conforme sua tradição (rio abaixo, etc.)." },
+        { "titulo": "Tampo e estrutura", "texto": "Escolha de madeiras para ataque e sustain característicos da viola." },
+        { "titulo": "Acabamento", "texto": "Verniz, filetes e detalhes alinhados à linha Raiz ou ao projeto acordado." },
+        { "titulo": "Regulagem", "texto": "Ação e altura de cordas ajustadas na entrega para o conforto da sua mão." }
+      ],
+      "whatsappMsg": "Olá, gostaria de um orçamento para viola caipira sob encomenda na Baratieri Luthieria."
+    },
+    {
+      "slug": "cavaquinho",
+      "nome": "Cavaquinho",
+      "tagline": "Brilho, definição e leveza para o choro e a música popular",
+      "metaDescription": "Cavaquinho sob encomenda — construção artesanal Baratieri Luthieria, madeira maciça, choro e música popular.",
+      "intro": "O cavaquinho da Baratieri Luthieria nasce para quem precisa de ataque rápido, definição nos solos e um instrumento leve e estável. Cada peça é única — como os cavaquinhos que você vê na vitrine, mas desenhada para você.",
+      "destaques": [
+        "Projeção e brilho nas cordas agudas",
+        "Corpo confortável para execução prolongada",
+        "Visual artesanal com filetes e madeiras selecionadas"
+      ],
+      "madeirasTipicas": "Tampo em marupá ou cedro; fundo e laterais em imbuia; braço em cedro; escala em pau-ferro.",
+      "linhas": "Raiz e Primeiras Notas — o nível de detalhe e madeiras é alinhado na conversa de orçamento.",
+      "prazo": "Prazo informado no orçamento; priorizamos comunicação clara em cada etapa.",
+      "especificacoes": [
+        { "titulo": "Formato", "texto": "Cavaquinho tradicional ou variações discutidas no projeto." },
+        { "titulo": "Sonoridade", "texto": "Foco em equilíbrio entre ataque e corpo para choro, samba e MPB." },
+        { "titulo": "Madeira maciça", "texto": "Sem laminados industriais no tampo — construção artesanal completa." },
+        { "titulo": "Personalização", "texto": "Nome, série e acabamento podem fazer parte do seu instrumento." }
+      ],
+      "whatsappMsg": "Olá, gostaria de um orçamento para cavaquinho sob encomenda na Baratieri Luthieria."
+    }
+  ]
+}

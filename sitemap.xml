@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Gerado por scripts/build-instrument-pages.mjs — npm run build -->
+  <!-- Gerado por scripts/build-encomenda-pages.mjs + instrumentos -->
 
   <url>
     <loc>https://loja.luthieriabaratieri.com.br/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://loja.luthieriabaratieri.com.br/encomenda/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://loja.luthieriabaratieri.com.br/encomenda/violao-om/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://loja.luthieriabaratieri.com.br/encomenda/violao-classico/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://loja.luthieriabaratieri.com.br/encomenda/viola-caipira/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://loja.luthieriabaratieri.com.br/encomenda/cavaquinho/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <url>
@@ -28,18 +58,6 @@
   </url>
 
   <url>
-    <loc>https://loja.luthieriabaratieri.com.br/instrumento/BL-PXIYQK/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://loja.luthieriabaratieri.com.br/instrumento/BL-PXMO4N/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
     <loc>https://loja.luthieriabaratieri.com.br/instrumento/BL-PXSJSX/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -47,12 +65,6 @@
 
   <url>
     <loc>https://loja.luthieriabaratieri.com.br/instrumento/BL-PXYLCY/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://loja.luthieriabaratieri.com.br/instrumento/BL-PY31S4/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

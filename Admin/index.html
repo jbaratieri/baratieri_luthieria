@@ -53,7 +53,7 @@
                 <th>Foto</th>
                 <th>Etiqueta</th>
                 <th>Modelo</th>
-                <th>Madeira </th>
+                <th>Materiais</th>
                 <th>Linha </th>
                 <th>Status</th>
                 <th>Comprador</th>
@@ -98,28 +98,84 @@
 
           <div class="row">
             <div style="flex:1">
-              <label>Madeira</label>
-              <input id="madeira" class="input" placeholder="Araucária, Cedro, Pau-ferro..." />
+              <label>Linha</label>
+              <input id="linha" class="input" placeholder="Raiz, Primeiras Notas..." />
             </div>
             <div style="width:140px">
               <label>Nº de série (opcional)</label>
-              <input id="serie" class="input" placeholder="001" />
+              <input id="serie" class="input" placeholder="BL-25-VC-001" />
             </div>
           </div>
           <div class="row">
-            <div style="flex:1">
-              <label>Linha</label>
-              <input id="linha" class="input" placeholder="Raiz, Hauser..." />
-            </div>
             <div style="width:160px">
               <label>Preço público (opcional)</label>
-              <input id="preco" class="input" inputmode="decimal" placeholder="ex: 8500" title="Se preenchido, aparece no JSON-LD para o Google (vitrine). Deixe vazio se for só orçamento." />
+              <input id="preco" class="input" inputmode="decimal" placeholder="ex: 8500" title="Se preenchido, aparece na ficha e no Google. Vazio = só orçamento." />
             </div>
           </div>
 
+          <fieldset class="form-fieldset">
+            <legend>Madeiras</legend>
+            <div class="row">
+              <div style="flex:1">
+                <label>Tampo</label>
+                <input id="tampo" class="input" placeholder="Cedro, abeto, marupá..." />
+              </div>
+              <div style="flex:1">
+                <label>Fundo e laterais</label>
+                <input id="fundoLaterais" class="input" placeholder="Imbuia, guajuvira..." />
+              </div>
+            </div>
+            <div class="row">
+              <div style="flex:1">
+                <label>Braço</label>
+                <input id="braco" class="input" placeholder="Cedro, mogno..." />
+              </div>
+              <div style="flex:1">
+                <label>Escala</label>
+                <input id="escala" class="input" placeholder="Pau-ferro, ébano..." />
+              </div>
+            </div>
+            <div class="row">
+              <div style="flex:1">
+                <label>Cavalete</label>
+                <input id="cavalete" class="input" placeholder="Madeira do cavalete ou modelo" />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-fieldset">
+            <legend>Componentes e acabamento</legend>
+            <div class="row">
+              <div style="flex:1">
+                <label>Tarraxas</label>
+                <input id="tarraxas" class="input" placeholder="Rozini, Schaller..." />
+              </div>
+              <div style="flex:1">
+                <label>Filetes / marchetaria</label>
+                <input id="filetes" class="input" placeholder="Filetes, detalhes em madeira..." />
+              </div>
+            </div>
+            <div class="row">
+              <div style="flex:1">
+                <label>Acabamento</label>
+                <input id="acabamento" class="input" placeholder="Verniz, laca, cera..." />
+              </div>
+              <div style="flex:1">
+                <label>Trastes, nut e rastilho</label>
+                <input id="hardware" class="input" placeholder="Opcional — ex: osso, sintético" />
+              </div>
+            </div>
+            <div class="row">
+              <div style="flex:1">
+                <label>Captação (somente se houver)</label>
+                <input id="captacao" class="input" placeholder="Deixe vazio se for só acústico" />
+              </div>
+            </div>
+          </fieldset>
+
           <div>
-            <label>Observações</label>
-            <textarea id="obs" placeholder="Notas técnicas, afinações, passagem de dedos..."></textarea>
+            <label>Texto da ficha (história, timbre, detalhes extras)</label>
+            <textarea id="obs" placeholder="Texto de apresentação do instrumento. Evite repetir a lista de madeiras acima — ela aparece automaticamente na loja."></textarea>
           </div>
 
           <hr style="opacity:0.06;margin:12px 0" />

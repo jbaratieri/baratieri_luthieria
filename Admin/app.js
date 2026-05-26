@@ -27,7 +27,18 @@
       const tbody = $id('tbody');
       const emptyBox = $id('empty');
       const form = $id('form');
-      const inputs = ['nome', 'ano', 'modelo', 'status', 'madeira', 'linha', 'serie', 'preco', 'obs', 'comprador', 'telefone'];
+      const SPEC_KEYS = ['tampo', 'fundoLaterais', 'braco', 'escala', 'cavalete', 'tarraxas', 'filetes', 'acabamento', 'hardware', 'captacao'];
+      const inputs = ['nome', 'ano', 'modelo', 'status', 'linha', 'serie', 'preco', ...SPEC_KEYS, 'obs', 'comprador', 'telefone'];
+      const SANITIZE_KEYS = ['id', 'serie', 'nome', 'modelo', 'madeira', 'linha', 'ano', 'status', 'preco', 'comprador', 'telefone', 'obs', 'createdAt', ...SPEC_KEYS];
+
+      function materialsSummary(it) {
+        const parts = SPEC_KEYS.filter(k => (it[k] || '').trim()).map(k => (it[k] || '').trim());
+        if (parts.length) {
+          const short = parts.slice(0, 2).join(' · ');
+          return parts.length > 2 ? short + '…' : short;
+        }
+        return (it.madeira || '').trim();
+      }
       const countEl = $id('count');
       const searchEl = $id('search');
       const filterStatusEl = $id('filterStatus');
@@ -183,7 +194,7 @@
 
       function sanitizeInstrument(it) {
         const out = Object.assign({}, it);
-        ['id', 'serie', 'nome', 'modelo', 'madeira', 'linha', 'ano', 'status', 'preco', 'comprador', 'telefone', 'obs', 'createdAt'].forEach(k => {
+        SANITIZE_KEYS.forEach(k => {
           if (out[k] === null || out[k] === undefined) out[k] = '';
           else if (typeof out[k] !== 'string') out[k] = String(out[k]);
         });
@@ -212,7 +223,7 @@
           if (statusF && i.status !== statusF) return false;
           if (linhaF && (i.linha || '') !== linhaF) return false;
           if (!q) return true;
-          const hay = (i.nome + ' ' + (i.modelo || '') + ' ' + (i.linha || '') + ' ' + (i.comprador || '') + ' ' + (i.obs || '')).toLowerCase();
+          const hay = (i.nome + ' ' + (i.modelo || '') + ' ' + (i.linha || '') + ' ' + (i.comprador || '') + ' ' + (i.madeira || '') + ' ' + SPEC_KEYS.map(k => i[k] || '').join(' ') + ' ' + (i.obs || '')).toLowerCase();
           return hay.indexOf(q) !== -1;
         });
 
@@ -238,7 +249,7 @@
           tdEtiqueta.innerHTML = `<div class="small">${escapeHtml(i.serie || i.id)}</div><div>${escapeHtml(i.nome)}</div>`;
 
           const tdModelo = document.createElement('td'); tdModelo.textContent = i.modelo || '';
-          const tdMadeira = document.createElement('td'); tdMadeira.textContent = i.madeira || '';
+          const tdMadeira = document.createElement('td'); tdMadeira.textContent = materialsSummary(i) || '—';
           const tdLinha = document.createElement('td'); tdLinha.textContent = i.linha || '';
 
           const tdStatus = document.createElement('td');
@@ -413,6 +424,8 @@
         const o = sanitizeInstrument(it);
         delete o.comprador;
         delete o.telefone;
+        SPEC_KEYS.forEach(k => { if (!o[k]) delete o[k]; });
+        if (!o.madeira) delete o.madeira;
         return o;
       }
 

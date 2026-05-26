@@ -3,6 +3,6 @@
   "private": true,
   "description": "Vitrine estática — gera fichas de instrumentos e sitemap",
   "scripts": {
-    "build": "node scripts/build-instrument-pages.mjs"
+    "build": "node scripts/build-instrument-pages.mjs && node scripts/build-encomenda-pages.mjs"
   }
 }
