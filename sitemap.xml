@@ -75,4 +75,10 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://loja.luthieriabaratieri.com.br/instrumento/BL-U1RPRU/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

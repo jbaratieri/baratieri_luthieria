@@ -148,5 +148,30 @@
     "hardware": "Trastes dourado, rastilho e nut de osso",
     "captacao": "",
     "madeira": ""
-  }
+  },
+  {
+  "id": "BL-U1RPRU",
+  "createdAt": "2026-08-02T00:00:00.000Z",
+  "nome": "Uirapuru",
+  "ano": "2026",
+  "modelo": "Violão OM (Aço, 6 cordas)",
+  "status": "Disponível",
+  "linha": "Raiz",
+  "serie": "BL-26-VA-001",
+  "obs": "Uirapuru é um violão estilo OM, de cordas de aço, construído para músicos que buscam projeção, equilíbrio e uma voz própria — assim como a ave lendária que empresta seu nome ao instrumento. O tampo em cedro rosa confere brilho e resposta rápida, enquanto fundo e laterais em louro trazem corpo e sustentação às notas graves. O braço em cedro, com tensor natural em ipê e encontro da caixa na 14ª casa, garante estabilidade e conforto em toda a extensão do braço. A roseta em marchetaria artesanal com madeiras nobres e os filetes no mesmo padrão reforçam a identidade visual da linha, enquanto as marcações em madre pérola e o headstock personalizado com a marca Baratieri assinam um instrumento de exceção. O acabamento em goma laca indiana com técnica de french polish realça o brilho natural das madeiras, e a captação Fishman com roldana e jack blindados garante amplificação limpa e confiável em qualquer palco. Uma peça feita à mão pelo luthier Jacir Paulo Baratieri.",
+  "comprador": "",
+  "telefone": "",
+  "preco": "7000",
+  "tampo": "Cedro Rosa",
+  "fundoLaterais": "Louro",
+  "braco": "Cedro",
+  "escala": "Pau Ferro",
+  "cavalete": "Pau Ferro",
+  "tarraxas": "Especiais",
+  "filetes": "Marchetaria em madeiras nobres",
+  "acabamento": "Goma Laca Indiana - French Polish",
+  "hardware": "Nut e Rastilho em osso, marcações em madre pérola, tensor natural em Ipê, headstock personalizado Baratieri, roseta/mosaico em marchetaria artesanal com madeiras nobres",
+  "captacao": "Fishman, roldana/jack blindado",
+  "madeira": ""
+}
 ]
