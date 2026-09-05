@@ -27,9 +27,10 @@
       const tbody = $id('tbody');
       const emptyBox = $id('empty');
       const form = $id('form');
-      const SPEC_KEYS = ['tampo', 'fundoLaterais', 'braco', 'escala', 'cavalete', 'tarraxas', 'filetes', 'acabamento', 'hardware', 'captacao'];
+      const SPEC_KEYS = ['tampo', 'fundoLaterais', 'braco', 'escala', 'cavalete', 'tarraxas', 'filetes', 'acabamento', 'trastes', 'nut', 'rastilho', 'headstock', 'bitolaMax', 'captacao'];
+      const LEGACY_KEYS = ['hardware'];
       const inputs = ['nome', 'ano', 'modelo', 'status', 'linha', 'serie', 'preco', ...SPEC_KEYS, 'obs', 'comprador', 'telefone'];
-      const SANITIZE_KEYS = ['id', 'serie', 'nome', 'modelo', 'madeira', 'linha', 'ano', 'status', 'preco', 'comprador', 'telefone', 'obs', 'createdAt', ...SPEC_KEYS];
+      const SANITIZE_KEYS = ['id', 'serie', 'nome', 'modelo', 'madeira', 'linha', 'ano', 'status', 'preco', 'comprador', 'telefone', 'obs', 'createdAt', ...SPEC_KEYS, ...LEGACY_KEYS];
 
       function materialsSummary(it) {
         const parts = SPEC_KEYS.filter(k => (it[k] || '').trim()).map(k => (it[k] || '').trim());
@@ -192,8 +193,26 @@
       function loadDraft() { try { const raw = localStorage.getItem(DRAFT_KEY); if (!raw) return; const obj = JSON.parse(raw); inputs.forEach(k => { const el = $id(k); if (el && obj[k] !== undefined) el.value = obj[k]; }); } catch (e) { warn(e); } }
       function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) { } }
 
-      function sanitizeInstrument(it) {
+      function migrateLegacyHardware(it) {
+        const hasSplit = ['nut', 'rastilho', 'trastes', 'headstock'].some(k => (it[k] || '').trim());
+        if (hasSplit) return it;
+        const hw = (it.hardware || '').trim();
+        if (!hw) return it;
         const out = Object.assign({}, it);
+        if (/osso/i.test(hw)) {
+          if (!out.nut) out.nut = 'Osso legítimo';
+          if (!out.rastilho) out.rastilho = 'Osso legítimo';
+        }
+        if (/trastes?\s+dourados/i.test(hw) && !out.trastes) out.trastes = 'Dourados';
+        if (/headstock/i.test(hw) && !out.headstock) {
+          const m = hw.match(/headstock\s+([^,.]+)/i);
+          if (m) out.headstock = m[1].trim();
+        }
+        return out;
+      }
+
+      function sanitizeInstrument(it) {
+        const out = migrateLegacyHardware(Object.assign({}, it));
         SANITIZE_KEYS.forEach(k => {
           if (out[k] === null || out[k] === undefined) out[k] = '';
           else if (typeof out[k] !== 'string') out[k] = String(out[k]);
@@ -223,7 +242,7 @@
           if (statusF && i.status !== statusF) return false;
           if (linhaF && (i.linha || '') !== linhaF) return false;
           if (!q) return true;
-          const hay = (i.nome + ' ' + (i.modelo || '') + ' ' + (i.linha || '') + ' ' + (i.comprador || '') + ' ' + (i.madeira || '') + ' ' + SPEC_KEYS.map(k => i[k] || '').join(' ') + ' ' + (i.obs || '')).toLowerCase();
+          const hay = (i.nome + ' ' + (i.modelo || '') + ' ' + (i.linha || '') + ' ' + (i.comprador || '') + ' ' + (i.madeira || '') + ' ' + SPEC_KEYS.map(k => i[k] || '').join(' ') + ' ' + (i.hardware || '') + ' ' + (i.obs || '')).toLowerCase();
           return hay.indexOf(q) !== -1;
         });
 
@@ -262,6 +281,7 @@
           tdActions.innerHTML = `
             <button class="btn ghost" data-id="${i.id}" data-action="view">Fotos</button>
             <button class="btn ghost" data-id="${i.id}" data-action="edit">Editar</button>
+            <button class="btn ghost" data-id="${i.id}" data-action="certificado">Certificado</button>
             <button class="btn ghost" data-id="${i.id}" data-action="delete">Excluir</button>
           `;
 
@@ -382,6 +402,11 @@
             });
             if (modalContent) { modalContent.innerHTML = ''; modalContent.appendChild(out); }
           } catch (e) { if (modalContent) modalContent.innerHTML = '<div class="small muted">Erro ao carregar imagens.</div>'; console.warn(e); }
+        }
+
+        if (action === 'certificado') {
+          window.open('./certificado.html?id=' + encodeURIComponent(id), '_blank', 'noopener');
+          return;
         }
 
         if (action === 'edit') {

@@ -98,7 +98,11 @@ const COMPONENT_SPECS = [
   ['Tarraxas', 'tarraxas'],
   ['Filetes / marchetaria', 'filetes'],
   ['Acabamento', 'acabamento'],
-  ['Trastes, nut e rastilho', 'hardware'],
+  ['Trastes', 'trastes'],
+  ['Nut', 'nut'],
+  ['Rastilho', 'rastilho'],
+  ['Headstock', 'headstock'],
+  ['Bitola máxima', 'bitolaMax'],
   ['Captação', 'captacao'],
 ];
 
@@ -118,6 +122,10 @@ function collectSpecPairs(it) {
   for (const [label, key] of COMPONENT_SPECS) {
     const v = specValue(it, key);
     if (v) components.push({ label, value: v });
+  }
+  const splitHardware = ['trastes', 'nut', 'rastilho', 'headstock'].some((k) => specValue(it, k));
+  if (!splitHardware && specValue(it, 'hardware')) {
+    components.push({ label: 'Trastes, nut e rastilho', value: specValue(it, 'hardware') });
   }
   return { woods, components };
 }

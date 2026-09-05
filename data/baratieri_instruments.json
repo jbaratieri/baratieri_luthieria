@@ -22,7 +22,12 @@
     "acabamento": "Goma Laca Indiana, aplicação em camadas finas (técnica tradicional)",
     "hardware": "Nut e rastilho em osso legítimo",
     "captacao": "",
-    "madeira": ""
+    "madeira": "",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "trastes": "",
+    "headstock": "",
+    "bitolaMax": ""
   },
   {
     "id": "BL-XSXTIX",
@@ -47,7 +52,12 @@
     "acabamento": "Goma Laca Indiana",
     "hardware": "Nut e rastilho em osso legítimo",
     "captacao": "",
-    "madeira": ""
+    "madeira": "",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "trastes": "",
+    "headstock": "",
+    "bitolaMax": ""
   },
   {
     "id": "BL-XTLQ2J",
@@ -72,7 +82,12 @@
     "acabamento": "Goma Laca Indiana",
     "hardware": "Nut e rastilho em osso legítimo",
     "captacao": "",
-    "madeira": ""
+    "madeira": "",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "trastes": "",
+    "headstock": "",
+    "bitolaMax": ""
   },
   {
     "id": "BL-PXSJSX",
@@ -97,7 +112,12 @@
     "acabamento": "Verniz Nitrocelulose, múltiplas demãos com polimento",
     "hardware": "Rastilho e nut em osso legítimo",
     "captacao": "",
-    "madeira": ""
+    "madeira": "",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "trastes": "",
+    "headstock": "",
+    "bitolaMax": ""
   },
   {
     "id": "BL-PXYLCY",
@@ -122,7 +142,12 @@
     "acabamento": "Goma Laca Indiana",
     "hardware": "Nut e rastilho em osso legítimo",
     "captacao": "",
-    "madeira": ""
+    "madeira": "",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "trastes": "",
+    "headstock": "",
+    "bitolaMax": ""
   },
   {
     "id": "BL-PY73U3",
@@ -147,7 +172,12 @@
     "acabamento": "Goma Laca",
     "hardware": "Trastes dourados, rastilho e nut em osso legítimo",
     "captacao": "",
-    "madeira": ""
+    "madeira": "",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "trastes": "Dourados",
+    "headstock": "",
+    "bitolaMax": ""
   },
   {
     "id": "BL-U1RPRU",
@@ -172,7 +202,12 @@
     "acabamento": "Goma Laca Indiana — técnica French Polish",
     "hardware": "Nut e rastilho em osso, marcações em madrepérola, headstock personalizado Baratieri",
     "captacao": "Fishman, com roldana e jack blindados",
-    "madeira": ""
+    "madeira": "",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "headstock": "personalizado Baratieri",
+    "trastes": "",
+    "bitolaMax": ""
   },
   {
     "id": "BL-GMS69W",
@@ -197,6 +232,41 @@
     "obs": "Inajá é uma palmeira nativa brasileira, conhecida pela madeira resistente e pelos frutos que alimentam tanto gente quanto bicho no meio da mata — um símbolo de força tranquila, que dá o tom deste cavaquinho.\n\nA combinação de tampo em marupá com fundo e laterais em imbuia segue a mesma receita que já provou seu valor em outros instrumentos da linha Raiz: resposta rápida e brilhante do marupá, equilibrada pelo grave presente e encorpado da imbuia. O braço em cedro mantém o instrumento leve, e a escala e o cavalete em pau-ferro garantem estabilidade dimensional mesmo com variação de clima — importante pra quem toca em rodas ao ar livre ou viaja com o instrumento.\n\nO destaque desta peça é o headstock modelo marca Baratieri, que assina visualmente o instrumento e reforça sua identidade — um detalhe que virou marca registrada dos instrumentos mais recentes que saem da minha bancada. Os filetes em marchetaria de madeira, montados manualmente, e o acabamento em goma-laca indiana completam um cavaquinho que une tradição, robustez e um visual que já nasce com assinatura.\n\nFeito pra durar, feito pra tocar todo dia — esse é o espírito por trás do Inajá.",
     "comprador": "",
     "telefone": "",
-    "madeira": ""
+    "madeira": "",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "headstock": "modelo marca Baratieri",
+    "trastes": "",
+    "bitolaMax": ""
+  },
+  {
+    "id": "BL-IN4H57",
+    "createdAt": "2026-09-01T12:25:29.035Z",
+    "nome": "Nobrega",
+    "ano": "2026",
+    "modelo": "Violão Folk Baratieri",
+    "status": "Vendido",
+    "linha": "Personal Acústico",
+    "serie": "BL-26-VF-001",
+    "preco": "5000",
+    "tampo": "Cedro Rosa",
+    "fundoLaterais": "Imbuia",
+    "braco": "Cedro Rosa",
+    "escala": "Pau-ferro",
+    "cavalete": "Jacarandá",
+    "tarraxas": "Blindadas Thida",
+    "filetes": "Imbuia com filetes claros",
+    "acabamento": "Goma Laca Indiana Clarificada",
+    "hardware": "Sanko 2.4",
+    "captacao": "",
+    "obs": "Nóbrega é um nome que carrega uma história diferente das demais: não vem do tupi, mas de gente — uma homenagem ao Igor Nóbrega, para quem este violão foi feito sob medida. E é um instrumento à altura do nome: presença, personalidade e um timbre que impõe respeito desde o primeiro acorde.\n\nO tampo em cedro rosa maciço entrega aquela resposta rápida e quente que só essa madeira dá — ótimo para quem gosta de sentir a corda \"abrir\" já nos primeiros toques. No fundo e laterais, a imbuia traz densidade e um médio encorpado, com um desenho de fibra bonito e único em cada corte, valorizado ainda mais pelos filetes claros que contornam a caixa. O braço, também em cedro rosa, segue a mesma linha do tampo — leveza aliada a estabilidade — com escala em pau-ferro, madeira densa que garante boa resposta e durabilidade nos trastes.\n\nO cavalete em jacarandá é outro detalhe que faz diferença na sustentação e na transmissão de vibração para o tampo. As tarraxas blindadas Thida garantem afinação firme e duradoura, enquanto o hardware Sanko 2.4 completa o conjunto com acabamento refinado nos detalhes metálicos. O acabamento em goma-laca indiana clarificada realça o veio natural de cada madeira, sem esconder a identidade do instrumento — cada peça sai da bancada com um desenho que não se repete.\n\nUm Folk Baratieri feito para carregar um nome — e para tocar à altura dele: corpo cheio, projeção sonora que enche a sala e aquele acabamento que só a goma-laca artesanal consegue dar.",
+    "comprador": "",
+    "telefone": "",
+    "madeira": "",
+    "trastes": "Sanko 2.4",
+    "nut": "Osso legítimo",
+    "rastilho": "Osso legítimo",
+    "headstock": "Modelo Baratieri com filetes",
+    "bitolaMax": ".011 — Custom Light"
   }
 ]
